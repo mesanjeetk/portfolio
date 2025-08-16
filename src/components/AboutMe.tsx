@@ -1,6 +1,6 @@
 import { BackgroundSparkles } from "./BackgroundSparkles"
 import { useSectionVisible } from "../hooks/useSectionVisible"
-import { ArrowRight, Award, Briefcase, CheckCircle } from "lucide-react";
+import { Briefcase, CheckCircle } from "lucide-react";
 
 interface AboutMeProps {
   className?: string;

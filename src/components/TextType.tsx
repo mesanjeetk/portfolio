@@ -1,4 +1,4 @@
-import React, { ElementType, useEffect, useRef, useState, createElement } from "react";
+import React, { type ElementType, useEffect, useRef, useState, createElement } from "react";
 import { gsap } from "gsap";
 
 interface TextTypeProps {

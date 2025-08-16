@@ -61,9 +61,8 @@ export const Journey = () => {
       <h2 className="text-4xl font-bold text-orange-500 mb-12 font-cursive2 text-center relative inline-block">
         My Journey
         <span
-          className={`absolute left-1/2 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full ${
-            isVisible ? "animate-underline" : ""
-          }`}
+          className={`absolute left-1/2 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full ${isVisible ? "animate-underline" : ""
+            }`}
         ></span>
       </h2>
 
@@ -85,7 +84,10 @@ export const Journey = () => {
               <div key={idx} className="relative flex items-start md:items-start group">
                 {/* Concentric Circles */}
                 <div
-                  ref={(el) => (circleRefs.current[idx] = el)}
+                  ref={(el) => {
+                    circleRefs.current[idx] = el;
+                  }}
+
                   className={`absolute top-0 left-10 md:left-16 flex flex-col items-center opacity-0`}
                   style={{ transform: "translate(-50%, -50%)" }}
                 >

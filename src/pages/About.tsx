@@ -1,5 +1,4 @@
-import React from "react";
-import { ArrowRight, Award, Briefcase, CheckCircle } from "lucide-react";
+import { ArrowRight, Briefcase, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Testimonials } from "../components/Testimonials"
 
