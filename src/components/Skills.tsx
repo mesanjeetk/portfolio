@@ -1,4 +1,4 @@
-import { Code, Server, Database, Terminal } from "lucide-react";
+import { Code, Server, Database } from "lucide-react";
 import { useSectionVisible } from "../hooks/useSectionVisible"
 
 interface Skill {
