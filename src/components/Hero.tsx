@@ -14,6 +14,7 @@ export const Hero = () => {
     } else {
       setFontsLoaded(true);
     }
+    console.log("Hello world")
   }, []);
   
   return (
