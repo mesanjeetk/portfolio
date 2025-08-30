@@ -10,6 +10,10 @@
   src: url("./assets/CedarvilleCursive-Regular.woff2") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+  ascent-override: 90%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -17,6 +21,10 @@
   src: url("./assets/EduNSWACTCursive-Regular.woff2") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+  ascent-override: 90%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 /* =========================
