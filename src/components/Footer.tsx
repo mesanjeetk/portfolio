@@ -20,7 +20,7 @@ export function Footer() {
             <a href="https://github.com/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
               <Github size={20} />
             </a>
-            <a href="#" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+            <a href="https://www.linkedin.com/in/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
               <Linkedin size={20} />
             </a>
             <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">

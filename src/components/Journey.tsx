@@ -38,26 +38,61 @@ const journeyItems: JourneyItem[] = [
 ];
 
 export const Journey = () => {
-  const { sectionRef, isVisible } = useSectionVisible();
+  const { sectionRef } = useSectionVisible();
   const lineRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (isVisible && lineRef.current) {
-      gsap.to(lineRef.current, { height: "100%", duration: 2, ease: "power4.inOut" });
+    if (!lineRef.current) return;
 
-      itemRefs.current.forEach((item, idx) => {
-        if (item) {
-          gsap.fromTo(
-            item,
-            { opacity: 0, x: idx % 2 === 0 ? -50 : 50 },
-            { opacity: 1, x: 0, duration: 1, delay: 0.5 + idx * 0.2, ease: "power3.out" }
-          );
+    const ctx = gsap.context(() => {
+
+      // Animate central line with scroll
+      gsap.fromTo(
+        lineRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            end: "bottom 80%",
+            scrub: true
+          }
         }
-      });
-    }
-  }, [isVisible]);
+      );
 
+      // Animate items individually
+      itemRefs.current.forEach((item, idx) => {
+        if (!item) return;
+
+        gsap.fromTo(
+          item,
+          {
+            opacity: 0,
+            y: 80,
+            x: idx % 2 === 0 ? -60 : 60
+          },
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
   return (
     <section ref={sectionRef} id="journey" className="relative w-full py-24 px-6 md:px-10 overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -72,7 +107,7 @@ export const Journey = () => {
         <div className="relative">
           {/* Central Timeline Line */}
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden md:block">
-            <div ref={lineRef} className="absolute top-0 left-0 w-full bg-accent glow-shadow origin-top h-0"></div>
+            <div ref={lineRef} className="absolute top-0 left-0 w-full bg-gradient-to-b from-accent via-indigo-500 to-purple-500 origin-top scale-y-0 shadow-[0_0_25px_rgba(99,102,241,0.6)]"></div>
           </div>
 
           <div className="space-y-12 md:space-y-0 relative">
@@ -81,13 +116,22 @@ export const Journey = () => {
                 key={idx}
                 ref={el => { itemRefs.current[idx] = el; }}
                 className={`relative flex flex-col md:flex-row items-center md:items-start group md:mb-24 opacity-0`}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = (e.clientX - rect.left - rect.width / 2) / 20;
+                  const y = (e.clientY - rect.top - rect.height / 2) / 20;
+                  gsap.to(e.currentTarget, { rotateY: x, rotateX: -y, duration: 0.3 });
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget, { rotateY: 0, rotateX: 0, duration: 0.5 });
+                }}
               >
                 {/* Timeline Dot */}
                 <div className="absolute left-4 md:left-1/2 top-10 w-4 h-4 rounded-full bg-obsidian border-2 border-accent z-10 -translate-x-1/2 scale-150 shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:bg-accent transition-colors duration-500 hidden md:block"></div>
 
                 {/* Content Side */}
                 <div className={`w-full md:w-[45%] ${idx % 2 === 0 ? 'md:mr-auto md:text-right md:pr-12' : 'md:ml-auto md:pl-12'}`}>
-                  <div className="glass-panel p-8 rounded-[2rem] border border-white/5 hover:border-accent/30 transition-all duration-500 relative group">
+                  <div className="bg-white/[0.04] backdrop-blur-2xl p-8 rounded-[2rem] border border-white/10 hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5)] transition-all duration-500 relative group">
                     <div className={`flex items-center gap-3 mb-4 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                       <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
                         <Calendar size={18} />

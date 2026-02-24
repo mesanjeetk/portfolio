@@ -1,133 +1,132 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { MessageSquare, Menu, X } from "lucide-react";
+import { Magnetic } from "./Magnetic";
 
-export const Navbar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Projects", path: "/projects" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
-  ];
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [isOpen]);
-
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+    { name: "About", path: "/about" },
+    { name: "Journey", path: "/journey" },
+  ];
 
   return (
-    <nav className="w-full fixed top-0 left-0 z-50 px-4 py-4 pointer-events-none">
-      <div
-        className={`max-w-5xl mx-auto flex items-center justify-between transition-all duration-500 rounded-2xl px-6 py-3 pointer-events-auto
-      ${scrolled ? "glass-panel shadow-2xl py-2" : "bg-transparent"}
-    `}
-      >
+    <nav
+      aria-label="Main Navigation"
+      className={`fixed top-0 left-0 w-full z-[100] px-6 md:px-10 py-6 transition-all duration-500 ${isScrolled ? 'pt-4' : 'pt-8'}`}
+    >
+      <div className={`max-w-7xl mx-auto flex items-center justify-between px-8 py-4 transition-all duration-500 ${isScrolled ? 'glass-panel rounded-full shadow-2xl' : 'bg-transparent'}`}>
+
         {/* Logo */}
-        <div
-          className="select-none cursor-pointer flex items-center gap-2 group"
-          onClick={() => navigate("/")}
-        >
-          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-xl group-hover:rotate-12 transition-transform">S</div>
-          <span className="font-outfit font-bold text-2xl tracking-tight text-white group-hover:text-accent transition-colors">
-            Sanjeet
-          </span>
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-1 items-center">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm
-              ${isActive ? "bg-accent/10 text-accent" : "text-slate-300 hover:text-white hover:bg-white/5"}`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
-          <Link to="/contact">
-            <button className="ml-4 px-5 py-2 bg-accent text-white rounded-lg text-sm font-semibold hover:glow-shadow transition-all btn-magnetic">
-              Let's Talk
-            </button>
+        <Magnetic>
+          <Link
+            to="/"
+            className="flex items-center gap-3 group relative cursor-pointer"
+            aria-label="Go to Home"
+          >
+            <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:glow-shadow transition-all group-hover:rotate-12">
+              S
+            </div>
+            <span className="text-white font-outfit font-black tracking-tighter text-lg hidden sm:block">SANJEET.</span>
           </Link>
+        </Magnetic>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-10">
+          <ul className="flex items-center gap-8">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <Magnetic>
+                  <Link
+                    to={link.path}
+                    className={`nav-link text-xs font-outfit font-black uppercase tracking-[0.2em] transition-all relative py-2 ${location.pathname === link.path ? 'text-accent' : 'text-slate-400 hover:text-white'}`}
+                    aria-current={location.pathname === link.path ? "page" : undefined}
+                  >
+                    {link.name}
+                    {location.pathname === link.path && (
+                      <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-accent rounded-full animate-fadeIn" />
+                    )}
+                  </Link>
+                </Magnetic>
+              </li>
+            ))}
+          </ul>
+
+          <Magnetic>
+            <Link to="/contact">
+              <button
+                className="flex items-center gap-3 px-6 py-3 bg-accent text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:glow-shadow transition-all group"
+                aria-label="Start a conversation with Sanjeet"
+              >
+                <MessageSquare size={16} aria-hidden="true" />
+                LET'S TALK
+              </button>
+            </Link>
+          </Magnetic>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle */}
         <button
-          className="md:hidden text-slate-200 p-2 glass-panel rounded-lg"
-          onClick={() => setIsOpen(true)}
-          aria-label="Open Menu"
+          className="md:hidden p-3 glass-panel rounded-xl text-white border border-white/5"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close main menu" : "Open main menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
-          <Menu size={24} />
+          {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-80 glass-panel shadow-2xl transform transition-transform duration-500 ease-in-out z-50 pointer-events-auto
-      ${isOpen ? "translate-x-0" : "translate-x-full"}`}
-      >
-        <div className="flex justify-between items-center px-6 py-6 border-b border-white/10">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-xl">S</div>
-            <span className="font-outfit font-bold text-2xl text-white">Sanjeet</span>
-          </div>
-          <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/5 rounded-lg transition-colors">
-            <X size={24} className="text-slate-200" />
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div
+          id="mobile-menu"
+          className="fixed inset-0 z-[110] bg-obsidian flex flex-col items-center justify-center gap-8 animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation Menu"
+        >
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-10 right-10 p-4 glass-panel rounded-full text-white"
+            aria-label="Close menu"
+          >
+            <X size={32} aria-hidden="true" />
           </button>
-        </div>
-
-        <div className="flex flex-col space-y-2 mt-6 px-4">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`px-4 py-3 rounded-xl font-medium transition-all text-lg
-              ${isActive ? "bg-accent/20 text-accent" : "text-slate-300 hover:bg-white/5"}`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
-          <Link to="/contact" className="pt-4" onClick={() => setIsOpen(false)}>
-            <button className="w-full py-4 bg-accent text-white rounded-xl font-bold">
-              Let's Talk
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className="text-6xl font-outfit font-black text-white hover:text-accent transition-colors"
+              onClick={() => setIsOpen(false)}
+              aria-current={location.pathname === link.path ? "page" : undefined}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Link to="/contact" onClick={() => setIsOpen(false)}>
+            <button
+              className="px-12 py-6 bg-accent text-white rounded-3xl font-black text-2xl shadow-xl"
+              aria-label="Start a conversation now"
+            >
+              LET'S TALK
             </button>
           </Link>
         </div>
-      </div>
-
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-obsidian/80 backdrop-blur-sm z-40 pointer-events-auto"
-          onClick={() => setIsOpen(false)}
-        ></div>
       )}
     </nav>
   );
-};
-
+}
