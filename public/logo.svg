@@ -1,10 +1,37 @@
-<svg viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Minimal SK grid mark">
-  <rect width="160" height="160" rx="20" fill="#0b0f19"/>
-  <g transform="translate(24,24)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
-    <!-- S as two arcs -->
-    <path d="M72 20c-18-18-54-6-54 12s48 14 48 30-36 24-52 10" stroke="#e2e8f0"/>
-    <!-- K using a stem + > shape -->
-    <path d="M90 20v76" stroke="#f97316"/>
-    <path d="M90 60l30-28M90 60l30 28" stroke="#f97316"/>
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sanjeet Kumar - SK Monogram">
+
+  <defs>
+    <linearGradient id="roseIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="160" height="160" rx="42" fill="#0B0B0F" />
+
+  <g transform="translate(60,80)">
+
+    <!-- S -->
+    <path d="M 25 -40 C -20 -40, -35 -10, 5 -5 C 35 0, 20 30, -25 35" fill="none" stroke="url(#roseIndigo)"
+      stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" />
+
+    <!-- K vertical -->
+    <line x1="25" y1="-40" x2="25" y2="40" stroke="white" stroke-width="8" stroke-linecap="round" />
+
+    <!-- K diagonals -->
+    <line x1="25" y1="0" x2="55" y2="-40" stroke="white" stroke-width="8" stroke-linecap="round" />
+
+    <line x1="25" y1="0" x2="55" y2="40" stroke="white" stroke-width="8" stroke-linecap="round" />
+
   </g>
+
 </svg>
