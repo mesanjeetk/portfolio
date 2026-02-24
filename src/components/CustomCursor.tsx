@@ -31,10 +31,9 @@ export default function CustomCursor() {
         const lerp = (start: number, end: number, amt: number) =>
             start + (end - start) * amt;
 
-        const move = (e: MouseEvent) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        };
+        let lastMouseX = mouseX;
+        let lastMouseY = mouseY;
+        let idleFrames = 0;
 
         const animate = () => {
             // Smooth interpolation
@@ -60,10 +59,33 @@ export default function CustomCursor() {
 
             setScale(1 + velocity / 300);
 
-            requestAnimationFrame(animate);
+            // Idle check: if mouse hasn't moved and cursor reached position, stop loop
+            if (Math.abs(mouseX - posX) < 0.1 && Math.abs(mouseY - posY) < 0.1 && mouseX === lastMouseX && mouseY === lastMouseY) {
+                idleFrames++;
+            } else {
+                idleFrames = 0;
+            }
+
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+
+            if (idleFrames < 60) {
+                rafRef.current = requestAnimationFrame(animate);
+            } else {
+                rafRef.current = null;
+            }
         };
 
-        animate();
+        const rafRef = { current: null as number | null };
+        rafRef.current = requestAnimationFrame(animate);
+
+        const move = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!rafRef.current) {
+                rafRef.current = requestAnimationFrame(animate);
+            }
+        };
 
         // Magnetic hover effect
         const interactive = document.querySelectorAll("a, button, .cursor-pointer");

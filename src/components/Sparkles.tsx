@@ -233,7 +233,7 @@ function Star({
     <svg
       viewBox="0 0 24 24"
       style={style}
-      className={`drop-shadow-[0_0_4px_rgba(255,255,255,0.55)] ${anim}`}
+      className={anim}
       fill="currentColor"
       aria-hidden
     >

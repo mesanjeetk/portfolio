@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const ScrollProgress = () => {
+export default function ScrollProgress() {
     const barRef = useRef<HTMLDivElement>(null);
     const glowRef = useRef<HTMLDivElement>(null);
 

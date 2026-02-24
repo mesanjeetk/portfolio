@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
-import CustomCursor from "./components/CustomCursor";
-import Sparkles from "./components/Sparkles";
 import { Loader } from "./components/Loader";
 
 // Lazy Load Pages for Performance
@@ -15,17 +13,23 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Journey = lazy(() => import("./pages/Journey"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-import { ScrollProgress } from "./components/ScrollProgress";
+// Lazy Load Global Components
+const CustomCursor = lazy(() => import("./components/CustomCursor"));
+const Sparkles = lazy(() => import("./components/Sparkles"));
+const ScrollProgress = lazy(() => import("./components/ScrollProgress"));
 
 export default function App() {
   return (
     <Router>
-      <ScrollProgress />
+      <Suspense fallback={null}>
+        <ScrollProgress />
+        <CustomCursor />
+        <Sparkles rate={5} />
+      </Suspense>
       <ScrollToTop />
       <Navbar />
       <div className="bg-obsidian text-white pt-20 relative min-h-screen">
-        <CustomCursor />
-        <Sparkles rate={10} />
+
 
         <main>
           <Suspense fallback={<Loader />}>
