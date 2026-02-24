@@ -163,6 +163,8 @@ export const Hero = () => {
                 <img
                   src="/image.webp"
                   alt="Sanjeet Kumar - Creative Engineer"
+                  fetchPriority="high"
+                  loading="eager"
                   className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
                 />
                 <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors duration-1000"></div>

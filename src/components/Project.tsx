@@ -70,12 +70,12 @@ export const Projects = () => {
                 {/* Links Overlay */}
                 <div className="absolute top-6 right-6 flex gap-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                   {project.githubLink && (
-                    <a href={project.githubLink} target="_blank" className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-colors">
+                    <a href={project.githubLink} target="_blank" className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-colors" aria-label={`View GitHub repository for ${project.title}`}>
                       <Github size={20} />
                     </a>
                   )}
                   {project.projectLink && (
-                    <a href={project.projectLink} target="_blank" className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-colors">
+                    <a href={project.projectLink} target="_blank" className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-colors" aria-label={`View live demo of ${project.title}`}>
                       <ArrowUpRight size={20} />
                     </a>
                   )}

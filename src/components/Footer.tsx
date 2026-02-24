@@ -17,16 +17,16 @@ export function Footer() {
           </div>
 
           <div className="flex gap-4">
-            <a href="https://github.com/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+            <a href="https://github.com/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all" aria-label="Visit Sanjeet's GitHub profile">
               <Github size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+            <a href="https://www.linkedin.com/in/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all" aria-label="Connect with Sanjeet on LinkedIn">
               <Linkedin size={20} />
             </a>
-            <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+            <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all" aria-label="Follow Sanjeet on Instagram">
               <Instagram size={20} />
             </a>
-            <a href="mailto:iamsanjeet1432@gmail.com" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+            <a href="mailto:iamsanjeet1432@gmail.com" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all" aria-label="Send an email to Sanjeet">
               <Mail size={20} />
             </a>
           </div>
@@ -34,6 +34,7 @@ export function Footer() {
           <button
             onClick={scrollToTop}
             className="w-12 h-12 glass-panel rounded-xl flex items-center justify-center text-slate-400 hover:text-white border border-white/5 hover:border-accent transition-all group"
+            aria-label="Scroll back to top"
           >
             <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
           </button>

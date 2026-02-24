@@ -247,10 +247,10 @@ export const Journey = () => {
 
                       {/* Descriptive Body */}
                       <div className="parallax-content space-y-4">
-                        <h4 className="text-3xl font-outfit font-black text-white group-hover:text-accent transition-colors duration-500 tracking-tight flex items-center gap-3">
+                        <h3 className="text-3xl font-outfit font-black text-white group-hover:text-accent transition-colors duration-500 tracking-tight flex items-center gap-3">
                           {item.title}
                           <span className="w-1.5 h-1.5 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </h4>
+                        </h3>
                         <p className="text-slate-400 font-outfit text-base leading-relaxed font-medium">
                           {item.description}
                         </p>

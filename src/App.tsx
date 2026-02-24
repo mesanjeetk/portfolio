@@ -27,16 +27,18 @@ export default function App() {
         <CustomCursor />
         <Sparkles rate={10} />
 
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/journey" element={<Journey />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <main>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/journey" element={<Journey />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
 
         <Footer />
       </div>

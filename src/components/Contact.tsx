@@ -50,13 +50,13 @@ export const Contact = () => {
               </a>
 
               <div className="flex gap-4 pt-4">
-                <a href="https://github.com/sanjeetk-dev" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                <a href="https://github.com/sanjeetk-dev" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all" aria-label="Visit Sanjeet's GitHub">
                   <Github size={20} />
                 </a>
-                <a href="#" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                <a href="#" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all" aria-label="Visit Sanjeet's LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all" aria-label="Visit Sanjeet's Instagram">
                   <Instagram size={20} />
                 </a>
               </div>
