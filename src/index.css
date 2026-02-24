@@ -110,7 +110,7 @@ body::before {
    HERO / PROFILE IMAGE
 ========================= */
 .hero__img {
-  background: url("/image.webp") center/cover no-repeat;
+  background: url("/image.jpg") center/cover no-repeat;
   border: 2px solid var(--color-accent);
   box-shadow: 0 0 30px var(--color-accent-glow);
   opacity: 0.95;

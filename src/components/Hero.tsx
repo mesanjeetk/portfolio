@@ -147,7 +147,7 @@ export const Hero = () => {
               <div className="flex -space-x-3">
                 {[1, 2, 3].map(i => (
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-obsidian bg-slate-800 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="client avatar" />
+                    <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="client avatar" height={40} width={40} />
                   </div>
                 ))}
               </div>
@@ -161,7 +161,7 @@ export const Hero = () => {
             <div className="relative w-full h-full rounded-[4rem] overflow-hidden glass-panel p-2 group shadow-2xl">
               <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative">
                 <img
-                  src="/image.webp"
+                  src="/image.jpg"
                   alt="Sanjeet Kumar - Creative Engineer"
                   fetchPriority="high"
                   loading="eager"

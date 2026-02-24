@@ -64,6 +64,14 @@ export const Projects = () => {
                   src={project.imageUrl}
                   alt={project.title}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                  srcSet={`
+                    ${project.imageUrl}?w=438 438w,
+                    ${project.imageUrl}?w=768 768w,
+                    ${project.imageUrl}?w=1200 1200w
+                  `}
+                  sizes="(max-width: 600px) 438px,
+                    (max-width: 900px) 768px,
+                    1200px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-60"></div>
 

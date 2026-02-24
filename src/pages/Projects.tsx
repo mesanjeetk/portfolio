@@ -108,6 +108,14 @@ const ProjectCard = React.memo(
             alt={`Preview for project: ${project.title}`}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
+            srcSet={`
+              ${project.imageUrl}?w=438 438w,
+              ${project.imageUrl}?w=768 768w,
+              ${project.imageUrl}?w=1200 1200w
+            `}
+            sizes="(max-width: 600px) 438px,
+              (max-width: 900px) 768px,
+              1200px"
           />
 
           {/* Soft gradient for readability */}
@@ -217,6 +225,14 @@ export default function Projects() {
                   src={activeProject.imageUrl}
                   alt=""
                   className="w-full h-full object-cover grayscale brightness-50"
+                  srcSet={`
+                    ${activeProject.imageUrl}?w=438 438w,
+                    ${activeProject.imageUrl}?w=768 768w,
+                    ${activeProject.imageUrl}?w=1200 1200w
+                  `}
+                  sizes="(max-width: 600px) 438px,
+                    (max-width: 900px) 768px,
+                    1200px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-obsidian hidden lg:block"></div>
                 <div className="absolute bottom-16 left-16 right-16 space-y-4">

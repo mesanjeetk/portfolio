@@ -54,7 +54,7 @@ export default function About() {
             <div className="aspect-[4/5] glass-panel p-2 rounded-[4rem] rotate-3 hover:rotate-0 transition-transform duration-1000 group">
               <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative">
                 <img
-                  src="/image.webp"
+                  src="/image.jpg"
                   alt="Sanjeet Kumar at work"
                   className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
                 />

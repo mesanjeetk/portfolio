@@ -11,7 +11,7 @@ interface AboutMeProps {
 export const AboutMe: React.FC<AboutMeProps> = ({
   title = "ABOUT ME",
   description = "I'm a dedicated Full Stack Developer with a passion for building seamless digital experiences. With over a year of professional experience, I've had the privilege of working on diverse projects that challenge my creativity and technical skills. My approach combines clean code with intuitive design to deliver performance-driven solutions.",
-  image = "/image.webp",
+  image = "/image.jpg",
   className = ""
 }) => {
   const { sectionRef, isVisible } = useSectionVisible()
