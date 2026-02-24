@@ -1,52 +1,57 @@
 import { useSectionVisible } from "../hooks/useSectionVisible";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
+import { Calendar, Star } from "lucide-react";
 
 interface JourneyItem {
   date: string;
   title: string;
   description: string;
+  icon?: React.ReactNode;
 }
 
 const journeyItems: JourneyItem[] = [
   {
     date: "March 2024",
-    title: "Started Learning Web Development",
-    description: "Began with HTML, CSS, and JavaScript. Built small personal projects.",
+    title: "The First Line of Code",
+    description: "Embarked on the journey of web development. Mastered HTML, CSS, and the fundamentals of JavaScript, building a foundation for creative digital solutions.",
+    icon: <Star size={16} />
   },
   {
-    date: "Aug 2024",
-    title: "First Real Project",
-    description: "Built my first real portfolio website and learned React basics.",
+    date: "August 2024",
+    title: "Mastering the Modern Stack",
+    description: "Deep-dived into React and modern frontend ecosystems. Built the first real-world portfolio and started exploring component-driven architecture.",
+    icon: <Star size={16} />
   },
   {
-    date: "Mar 2025",
-    title: "Advanced Skills & Node.js",
-    description: "Started learning backend with Node.js, Express, and MongoDB.",
+    date: "March 2025",
+    title: "Scaling with Backend",
+    description: "Expanded expertise to the full stack. mastered Node.js, Express, and MongoDB, enabling the creation of complex, data-driven applications.",
+    icon: <Star size={16} />
   },
   {
-    date: "Aug 2025",
-    title: "Professional Portfolio",
-    description: "Created a fully dynamic portfolio with interactive sections & animations.",
+    date: "August 2025",
+    title: "The Professional Milestone",
+    description: "Launched a fully dynamic, high-performance portfolio. Integrated advanced animations and premium layouts to showcase professional-grade craftsmanship.",
+    icon: <Star size={16} />
   },
 ];
 
 export const Journey = () => {
   const { sectionRef, isVisible } = useSectionVisible();
   const lineRef = useRef<HTMLDivElement>(null);
-  const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Animate vertical line and circles on section visible
   useEffect(() => {
     if (isVisible && lineRef.current) {
-      gsap.to(lineRef.current, { height: "100%", duration: 1.5, ease: "power2.out" });
+      gsap.to(lineRef.current, { height: "100%", duration: 2, ease: "power4.inOut" });
 
-      circleRefs.current.forEach((circle, idx) => {
-        if (circle) {
+      itemRefs.current.forEach((item, idx) => {
+        if (item) {
           gsap.fromTo(
-            circle,
-            { scale: 0, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.6, delay: idx * 0.2, ease: "back.out(1.7)" }
+            item,
+            { opacity: 0, x: idx % 2 === 0 ? -50 : 50 },
+            { opacity: 1, x: 0, duration: 1, delay: 0.5 + idx * 0.2, ease: "power3.out" }
           );
         }
       });
@@ -54,65 +59,66 @@ export const Journey = () => {
   }, [isVisible]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full py-20 px-4 md:px-10 bg-slate-900 text-slate-200"
-    >
-      <h2 className="text-4xl font-bold text-orange-500 mb-12 font-cursive2 text-center relative inline-block">
-        My Journey
-        <span
-          className={`absolute left-1/2 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full ${isVisible ? "animate-underline" : ""
-            }`}
-        ></span>
-      </h2>
+    <section ref={sectionRef} id="journey" className="relative w-full py-24 px-6 md:px-10 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
 
-      <div className="relative max-w-4xl mx-auto">
-        {/* Vertical line */}
-        <div
-          ref={lineRef}
-          className="absolute top-0 left-10 md:left-16 w-1 bg-orange-500 rounded-full shadow-[0_0_20px_#f97316] origin-top"
-          style={{ height: "0", transform: "translateX(-50%)" }}
-        ></div>
+        <div className="text-center space-y-4 mb-24 animate-slideUp">
+          <h2 className="text-accent font-outfit font-bold tracking-widest text-sm uppercase">EVOLUTION</h2>
+          <h3 className="text-4xl md:text-6xl font-outfit font-black text-white leading-tight">
+            MY CREATIVE <span className="text-gradient">JOURNEY</span>
+          </h3>
+        </div>
 
-        {/* Journey Items */}
-        <div className="space-y-16">
-          {journeyItems.map((item, idx) => {
-            const rotateDirection = idx % 2 === 0 ? "clockwise" : "anticlockwise";
-            const innerRotate = rotateDirection === "clockwise" ? "anticlockwise" : "clockwise";
+        <div className="relative">
+          {/* Central Timeline Line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden md:block">
+            <div ref={lineRef} className="absolute top-0 left-0 w-full bg-accent glow-shadow origin-top h-0"></div>
+          </div>
 
-            return (
-              <div key={idx} className="relative flex items-start md:items-start group">
-                {/* Concentric Circles */}
-                <div
-                  ref={(el) => {
-                    circleRefs.current[idx] = el;
-                  }}
+          <div className="space-y-12 md:space-y-0 relative">
+            {journeyItems.map((item, idx) => (
+              <div
+                key={idx}
+                ref={el => { itemRefs.current[idx] = el; }}
+                className={`relative flex flex-col md:flex-row items-center md:items-start group md:mb-24 opacity-0`}
+              >
+                {/* Timeline Dot */}
+                <div className="absolute left-4 md:left-1/2 top-10 w-4 h-4 rounded-full bg-obsidian border-2 border-accent z-10 -translate-x-1/2 scale-150 shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:bg-accent transition-colors duration-500 hidden md:block"></div>
 
-                  className={`absolute top-0 left-10 md:left-16 flex flex-col items-center opacity-0`}
-                  style={{ transform: "translate(-50%, -50%)" }}
-                >
-                  <div
-                    className={`w-6 h-6 md:w-8 md:h-8 border-2 border-orange-500 rounded-full flex items-center justify-center shadow-[0_0_15px_#f97316] animate-${rotateDirection}`}
-                  >
-                    <div
-                      className={`w-3 h-3 md:w-4 md:h-4 border-2 border-orange-300 rounded-full shadow-[0_0_10px_#ffb84d] animate-${innerRotate}`}
-                    ></div>
+                {/* Content Side */}
+                <div className={`w-full md:w-[45%] ${idx % 2 === 0 ? 'md:mr-auto md:text-right md:pr-12' : 'md:ml-auto md:pl-12'}`}>
+                  <div className="glass-panel p-8 rounded-[2rem] border border-white/5 hover:border-accent/30 transition-all duration-500 relative group">
+                    <div className={`flex items-center gap-3 mb-4 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                      <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                        <Calendar size={18} />
+                      </div>
+                      <span className="text-accent font-outfit font-bold tracking-wider text-xs uppercase">{item.date}</span>
+                    </div>
+
+                    <h4 className="text-2xl font-outfit font-black text-white mb-4 group-hover:text-accent transition-colors tracking-tight">
+                      {item.title}
+                    </h4>
+
+                    <p className="text-slate-400 font-outfit leading-relaxed">
+                      {item.description}
+                    </p>
+
+                    {/* Decorative Corner Icon */}
+                    <div className={`absolute top-6 ${idx % 2 === 0 ? 'left-6' : 'right-6'} text-white/5 group-hover:text-accent/20 transition-colors`}>
+                      {item.icon}
+                    </div>
                   </div>
                 </div>
 
-                {/* Event Box */}
-                <div className="ml-16 md:ml-24 bg-slate-800 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 flex-1 group-hover:scale-[1.02]">
-                  <p className="text-orange-500 font-medium mb-2">{item.date}</p>
-                  <h3 className="text-2xl font-semibold text-white mb-2 font-cursive2">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-300">{item.description}</p>
-                </div>
+                {/* Empty side for layout - hidden on mobile */}
+                <div className="hidden md:block md:w-[45%]"></div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );
 };
+

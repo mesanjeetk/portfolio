@@ -1,86 +1,112 @@
-import { ArrowRight, Briefcase, CheckCircle } from "lucide-react";
+import { ArrowRight, Briefcase, CheckCircle, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Testimonials } from "../components/Testimonials"
 
 const About = () => {
   return (
-    <section className="w-full py-20 px-4 md:px-10 bg-slate-950 text-slate-200">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-12">
-        {/* Profile Image */}
-        <div className="flex-shrink-0">
-          <div className="w-48 h-48 md:w-60 md:h-60 rounded-full overflow-hidden shadow-2xl border-4 border-orange-500 animate-slideUp">
-            <img
-              src="/image.webp"
-              alt="Sanjeet"
-              className="w-full h-full object-cover"
-            />
+    <section className="w-full min-h-screen py-24 px-6 md:px-10 overflow-hidden">
+      <div className="max-w-6xl mx-auto space-y-24">
+
+        {/* Hero Section of About Page */}
+        <div className="flex flex-col lg:flex-row items-center gap-16">
+          {/* Left - Large Profile Image with effects */}
+          <div className="flex-1 relative animate-slideUp">
+            <div className="relative group w-full max-w-md mx-auto aspect-[4/5] rounded-[3rem] overflow-hidden">
+              <div className="absolute inset-0 bg-accent/20 rounded-[3rem] rotate-3 group-hover:rotate-6 transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-indigo-500/10 rounded-[3rem] -rotate-3 group-hover:-rotate-2 transition-transform duration-700 delay-100"></div>
+              <div className="relative z-10 w-full h-full glass-panel p-2 rounded-[3rem] overflow-hidden">
+                <img
+                  src="/image.webp"
+                  alt="Sanjeet Kumar"
+                  className="w-full h-full object-cover rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-1000"
+                />
+              </div>
+              {/* Badge */}
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 glass-panel rounded-full flex items-center justify-center text-center p-6 border border-white/10 shadow-2xl animate-float">
+                <p className="text-[10px] font-outfit font-black text-accent leading-none uppercase tracking-tighter">
+                  Crafting <br />Digital <br />Future
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Bio & Info */}
-        <div className="flex-1 space-y-6">
-          <h2 className="text-4xl font-bold text-orange-500 font-cursive2 relative inline-block">
-            About Me
-            <span
-            className="absolute left-1/2 -bottom-2 w-full h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full transition-all animate-underline"
-          ></span>
-          </h2>
-          <p className="text-slate-300 text-lg leading-relaxed">
-            Hello! I’m <span className="text-orange-500 font-semibold">Sanjeet</span>, a passionate web developer specializing in building interactive and modern websites and web applications. I love combining <span className="text-orange-500">clean UI</span> with <span className="text-orange-500">efficient code</span> to create engaging digital experiences.
-          </p>
-          <p className="text-slate-300 text-lg leading-relaxed">
-            I have experience in <span className="text-orange-500">React, Next.js, Node.js, and Tailwind CSS</span>, and I enjoy exploring new technologies to improve my skills. When I’m not coding, I love to read, design, and experiment with animations.
-          </p>
+          {/* Right - Content */}
+          <div className="flex-1 space-y-10 animate-slideUp" style={{ animationDelay: '200ms' }}>
+            <div className="space-y-6">
+              <h2 className="text-accent font-outfit font-bold tracking-widest text-sm uppercase">STORY</h2>
+              <h3 className="text-5xl md:text-7xl font-outfit font-black text-white leading-tight">
+                THE MIND BEHIND THE <span className="text-gradient">CODE</span>
+              </h3>
+              <p className="text-slate-400 font-outfit text-xl leading-relaxed">
+                Hello! I’m <span className="text-white font-bold">Sanjeet</span>, a digital craftsman dedicated to merging technical excellence with visual elegance. I don’t just build websites; I craft experiences that resonate.
+              </p>
+              <p className="text-slate-400 font-outfit text-lg leading-relaxed">
+                With a focus on <span className="text-accent">performance, accessibility, and user-centric design</span>, I leverage the modern web stack to solve complex problems and bring vision to life.
+              </p>
+            </div>
 
-          {/* Skills/Highlights */}
-          <div className="flex flex-wrap gap-4 mt-4">
-            {["React", "Node.js", "Tailwind", "GSAP", "TypeScript"].map((skill) => (
-              <span
-                key={skill}
-                className="px-3 py-1 rounded-full bg-orange-500 text-slate-900 font-medium text-sm"
+            <div className="flex flex-wrap gap-3">
+              {["React", "Next.js", "Node.js", "Tailwind", "GSAP", "TypeScript"].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-5 py-2 glass-panel rounded-xl text-white font-bold text-xs uppercase tracking-widest border border-white/5 hover:border-accent/30 transition-all cursor-default"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            <div className="pt-6">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-4 px-10 py-5 bg-accent text-white rounded-2xl font-black text-lg shadow-xl hover:glow-shadow transition-all group"
               >
-                {skill}
-              </span>
-            ))}
-          </div>
-
-          {/* Experience Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-            <div className="flex flex-col items-center bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300">
-              <Briefcase size={28} className="text-orange-500 mb-2" />
-              <p className="text-2xl font-bold text-white">1+</p>
-              <p className="text-slate-300 text-center">Years of Experience</p>
-            </div>
-            <div className="flex flex-col items-center bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300">
-              <CheckCircle size={28} className="text-orange-500 mb-2" />
-              <p className="text-2xl font-bold text-white">5+</p>
-              <p className="text-slate-300 text-center">Projects Completed</p>
+                LET'S TALK
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
-
-          {/* Call to Action */}
-          <Link
-            to="/contact"
-            className="inline-flex items-center space-x-2 mt-6 text-orange-500 font-medium hover:underline"
-          >
-            <span>Get in Touch</span>
-            <ArrowRight size={20} />
-          </Link>
         </div>
-      </div>
 
-      {/* Testimonials / Trust Section */}
-      <div className="max-w-5xl mx-auto mt-16 space-y-8">
-        <h3 className="text-3xl font-bold text-orange-500 font-cursive2 text-center mb-8">
-          What People Say
-        </h3>
-        <Testimonials />
+        {/* Stats Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="glass-panel p-10 rounded-[2.5rem] border border-white/5 hover:border-accent/30 transition-all group">
+            <Briefcase size={32} className="text-accent mb-6 group-hover:scale-110 transition-transform" />
+            <h4 className="text-4xl font-outfit font-black text-white mb-2">1+ Year</h4>
+            <p className="text-slate-500 font-outfit font-bold uppercase tracking-widest text-xs">Professional Excellence</p>
+          </div>
+
+          <div className="glass-panel p-10 rounded-[2.5rem] border border-white/5 hover:border-accent/30 transition-all group">
+            <CheckCircle size={32} className="text-accent mb-6 group-hover:scale-110 transition-transform" />
+            <h4 className="text-4xl font-outfit font-black text-white mb-2">5+ Projects</h4>
+            <p className="text-slate-500 font-outfit font-bold uppercase tracking-widest text-xs">Delivered Worldwide</p>
+          </div>
+
+          <div className="glass-panel p-10 rounded-[2.5rem] border border-white/5 hover:border-accent/30 transition-all group">
+            <Award size={32} className="text-accent mb-6 group-hover:scale-110 transition-transform" />
+            <h4 className="text-4xl font-outfit font-black text-white mb-2">100%</h4>
+            <p className="text-slate-500 font-outfit font-bold uppercase tracking-widest text-xs">Client Satisfaction</p>
+          </div>
+        </div>
+
+        {/* Testimonials */}
+        <div className="space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-accent font-outfit font-bold tracking-widest text-sm uppercase">ENDORSEMENTS</h2>
+            <h3 className="text-4xl md:text-5xl font-outfit font-black text-white">WHAT PARTNERS <span className="text-gradient">SAY</span></h3>
+          </div>
+          <div className="glass-panel p-4 md:p-12 rounded-[3rem] border border-white/5">
+            <Testimonials />
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
 
 export default About;
+
 
 
 

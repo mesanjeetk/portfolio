@@ -1,93 +1,96 @@
 import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { SplitText } from "../components/SplitText";
-import { TextType } from "../components/TextType";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export const Hero = () => {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    if (document.fonts) {
-      document.fonts.ready.then(() => {
-        setFontsLoaded(true);
-      });
-    } else {
-      setFontsLoaded(true);
-    }
-    console.log("Hello world")
+    setLoaded(true);
   }, []);
-  
+
   return (
-    <div id="home" className="w-full flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-20 mb-20">
+    <div id="home" className="relative w-full min-h-[80vh] flex flex-col items-center justify-center pt-24 pb-20 overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent/20 rounded-full blur-[120px] animate-float"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }}></div>
 
-      {/* Left Content */}
-      <div className="flex-1 flex flex-col items-start justify-center space-y-6">
-        <h1 className="text-4xl lg:text-5xl font-bold leading-normal text-orange-500 font-cursive2 flex items-center whitespace-nowrap">
-          {fontsLoaded ? <SplitText text="Sanjeet&nbsp;Kumar" ease="elastic.out(1,0.3)" /> : <span>Sanjeet&nbsp;Kumar</span>}
-          <span className="text-slate-200 ml-2 animate-wave" >👋</span>
-        </h1>
+      <div className={`w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
-        <h1 className="text-3xl md:text-4xl font-extrabold leading-tight">
-          I’m a&nbsp;
-          <TextType
-            text={[
-              "Problem Solver",
-              "Creative Coder",
-              "Tech Enthusiast",
-            ]}
-            typingSpeed={70}
-            deletingSpeed={40}
-            pauseDuration={1500}
-            className="text-orange-500"
-            textColors={["#f97316", "#ffb84d", "#ff7f50"]}
-            loop
-          />
-        </h1>
+        {/* Left Content */}
+        <div className="flex-1 flex flex-col items-start space-y-8 z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border border-white/10 text-xs font-semibold tracking-wider text-accent uppercase">
+            <Sparkles size={14} /> Available for new projects
+          </div>
 
-        <p className="text-lg text-slate-300 max-w-lg">
-          I design and build modern, high-performance websites that bring ideas to life.
-          Let’s work together to create something remarkable.
-        </p>
-        <p className="text-lg text-slate-300 max-w-lg">
-          I'm a Full Stack Developer
-        </p>
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-outfit font-black tracking-tighter leading-[0.9] text-white">
+              BUILDING <br />
+              <span className="text-gradient">DIGITAL</span> <br />
+              EXPERIENCES
+            </h1>
+            <p className="text-lg md:text-xl text-slate-400 font-outfit max-w-xl leading-relaxed">
+              I'm <span className="text-white font-bold">Sanjeet Kumar</span>, a Full Stack Developer specialized in crafting high-performance, visually stunning web applications that bring ideas to life.
+            </p>
+          </div>
 
-        <div className="flex space-x-4">
-          <Link to="/projects">
-            <button className="flex items-center space-x-2 px-6 py-3 bg-orange-500 text-white rounded-full font-medium shadow-lg hover:bg-orange-600 transition-all duration-300">
-              <span>View&nbsp;Projects</span>
-              <ArrowRight className="w-6 h-6" />
-            </button>
-          </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/projects">
+              <button className="flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-2xl font-bold shadow-xl hover:glow-shadow transition-all group btn-magnetic">
+                View My Work
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
 
-          <Link to="/contact">
-            <button className="flex items-center space-x-2 px-6 py-3 border border-orange-500 text-orange-500 rounded-full font-medium hover:bg-orange-500 hover:text-white transition-all duration-300">
-              <span>Say&nbsp;Hello</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M14.2199 21.9352C13.0399 21.9352 11.3699 21.1052 10.0499 17.1352L9.32988 14.9752L7.16988 14.2552C3.20988 12.9352 2.37988 11.2652 2.37988 10.0852C2.37988 8.91525 3.20988 7.23525 7.16988 5.90525L15.6599 3.07525C17.7799 2.36525 19.5499 2.57525 20.6399 3.65525C21.7299 4.73525 21.9399 6.51525 21.2299 8.63525L18.3999 17.1252C17.0699 21.1052 15.3999 21.9352 14.2199 21.9352ZM7.63988 7.33525C4.85988 8.26525 3.86988 9.36525 3.86988 10.0852C3.86988 10.8052 4.85988 11.9052 7.63988 12.8252L10.1599 13.6652C10.3799 13.7352 10.5599 13.9152 10.6299 14.1352L11.4699 16.6552C12.3899 19.4352 13.4999 20.4252 14.2199 20.4252C14.9399 20.4252 16.0399 19.4352 16.9699 16.6552L19.7999 8.16525C20.3099 6.62525 20.2199 5.36525 19.5699 4.71525C18.9199 4.06525 17.6599 3.98525 16.1299 4.49525L7.63988 7.33525Z"
-                  fill="#f97316"
-                ></path>
-                <path
-                  d="M10.11 14.7052C9.92005 14.7052 9.73005 14.6352 9.58005 14.4852C9.29005 14.1952 9.29005 13.7152 9.58005 13.4252L13.16 9.83518C13.45 9.54518 13.93 9.54518 14.22 9.83518C14.51 10.1252 14.51 10.6052 14.22 10.8952L10.64 14.4852C10.5 14.6352 10.3 14.7052 10.11 14.7052Z"
-                  fill="#f97316"
-                ></path>
-              </svg>
-            </button>
-          </Link>
+            <Link to="/contact">
+              <button className="px-8 py-4 glass-panel border border-white/10 text-white rounded-2xl font-bold hover:bg-white/5 transition-all btn-magnetic">
+                Get in Touch
+              </button>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-6 pt-4">
+            <div className="flex -space-x-3">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-obsidian bg-obsidian-light flex items-center justify-center text-[10px] font-bold overflow-hidden glass-panel">
+                  <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" className="w-full h-full object-cover opacity-80" />
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-slate-400">
+              Trusted by <span className="text-white font-bold">50+</span> clients worldwide
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Right Content - Background Image */}
-      <div className="flex-1 flex justify-center">
-        <div className="h-80 w-80 md:h-[15rem] md:w-[15rem] bg-cover bg-center rounded-xl shadow-lg hero__img"></div>
+        {/* Right Content - Visual */}
+        <div className="flex-1 relative flex justify-center lg:justify-end">
+          <div className="relative group">
+            {/* Geometric Shapes */}
+            <div className="absolute -top-10 -right-10 w-24 h-24 border border-accent/30 rounded-full animate-float"></div>
+            <div className="absolute -bottom-8 -left-8 w-16 h-16 border border-indigo-500/20 rounded-xl rotate-12 animate-float" style={{ animationDelay: '1.5s' }}></div>
+
+            {/* Main Image Container */}
+            <div className="relative z-10 w-72 h-72 md:w-96 md:h-96">
+              <div className="hero__img w-full h-full grayscale hover:grayscale-0 transition-all duration-700"></div>
+
+              {/* Floating Badge */}
+              <div className="absolute -bottom-6 -right-6 glass-panel p-4 rounded-2xl shadow-2xl animate-float">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center text-accent">
+                    <span className="text-xl font-bold">5+</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 font-medium">Years of</p>
+                    <p className="text-sm text-white font-bold">Experience</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+

@@ -1,90 +1,53 @@
-import { Github, Mail } from "lucide-react";
+import { Github, Mail, Linkedin, Instagram, ArrowUp } from "lucide-react";
 
 export function Footer() {
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="bg-black text-white py-12">
-      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="relative w-full py-12 px-6 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-        {/* Left Section */}
-        <div>
-          <h1 className="text-2xl font-bold text-orange-500">Sanjeet Kumar</h1>
-          <p className="text-gray-400 mt-2 text-sm">
-            Crafting interactive, modern, and visually engaging web experiences.
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto space-y-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center text-white font-black text-xl">S</div>
+            <span className="text-2xl font-outfit font-black text-white tracking-tighter">SANJEET</span>
+          </div>
 
-        {/* Middle Section */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
-          <ul className="space-y-2">
-            <li>
-              <button
-                onClick={() => scrollToSection("home")}
-                className="hover:text-orange-500 transition-colors duration-300 cursor-pointer"
-              >
-                Home
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => scrollToSection("about")}
-                className="hover:text-orange-500 transition-colors duration-300 cursor-pointer"
-              >
-                About
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => scrollToSection("projects")}
-                className="hover:text-orange-500 transition-colors duration-300 cursor-pointer"
-              >
-                Projects
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="hover:text-orange-500 transition-colors duration-300 cursor-pointer"
-              >
-                Contact
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Right Section */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Connect</h2>
-          <div className="flex space-x-4">
-            <a
-              href="https://github.com/sanjeetk-dev"
-              target="_blank"
-              rel="noreferrer"
-              className="p-2 bg-white/5 rounded-full hover:bg-orange-500 hover:text-black transition-all duration-300"
-            >
+          <div className="flex gap-4">
+            <a href="https://github.com/sanjeetk-dev" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
               <Github size={20} />
             </a>
-            <a
-              href="mailto:youremail@example.com"
-              className="p-2 bg-white/5 rounded-full hover:bg-orange-500 hover:text-black transition-all duration-300"
-            >
+            <a href="#" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+              <Linkedin size={20} />
+            </a>
+            <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
+              <Instagram size={20} />
+            </a>
+            <a href="mailto:iamsanjeet1432@gmail.com" className="p-3 glass-panel rounded-xl text-slate-400 hover:text-white hover:bg-accent transition-all">
               <Mail size={20} />
             </a>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800 mt-8 pt-4 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} Sanjeet Kumar. All Rights Reserved.
+          <button
+            onClick={scrollToTop}
+            className="w-12 h-12 glass-panel rounded-xl flex items-center justify-center text-slate-400 hover:text-white border border-white/5 hover:border-accent transition-all group"
+          >
+            <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+          </button>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-outfit font-bold tracking-widest uppercase">
+          <p>© {new Date().getFullYear()} SANJEET KUMAR. ALL RIGHTS RESERVED.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
+

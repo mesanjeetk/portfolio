@@ -1,21 +1,20 @@
-import { Code, Server, Database } from "lucide-react";
+import { Code, Server, Database, Layers, Globe } from "lucide-react";
 import { useSectionVisible } from "../hooks/useSectionVisible"
 
 interface Skill {
   name: string;
   level: number;
-  experience: string;
-  color?: string;
   icon: React.ReactNode;
+  category: string;
 }
 
 const skills: Skill[] = [
-  { name: "HTML", level: 95, experience: "Expert", color: "#f97316", icon: <Code size={24} /> },
-  { name: "CSS", level: 90, experience: "Advanced", color: "#3b82f6", icon: <Code size={24} /> },
-  { name: "JavaScript", level: 92, experience: "Advanced", color: "#facc15", icon: <Code size={24} /> },
-  { name: "React", level: 88, experience: "Advanced", color: "#06b6d4", icon: <Code size={24} /> },
-  { name: "Node.js", level: 75, experience: "Intermediate", color: "#22c55e", icon: <Server size={24} /> },
-  { name: "MongoDB", level: 70, experience: "Intermediate", color: "#16a34a", icon: <Database size={24} /> },
+  { name: "Frontend", level: 90, icon: <Layers size={20} />, category: "Core" },
+  { name: "Backend", level: 75, icon: <Server size={20} />, category: "Core" },
+  { name: "Database", level: 70, icon: <Database size={20} />, category: "Data" },
+  { name: "React / Vite", level: 88, icon: <Globe size={20} />, category: "Framework" },
+  { name: "TypeScript", level: 82, icon: <Code size={20} />, category: "Language" },
+  { name: "Node.js", level: 78, icon: <Server size={20} />, category: "Runtime" },
 ];
 
 export const Skills = () => {
@@ -25,54 +24,52 @@ export const Skills = () => {
     <section
       ref={sectionRef}
       id="skills"
-      className="w-full py-20 px-4 md:px-10 bg-slate-900 text-slate-200"
+      className="relative w-full py-24 px-6 md:px-10 overflow-hidden"
     >
-      <h2 className="text-4xl font-bold text-orange-500 mb-12 font-cursive2 relative inline-block">
-        Skills & Expertise
-        <span className={`absolute left-1/2 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full ${isVisible ? "animate-underline" : ""}`}></span>
-      </h2>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center space-y-4 mb-20 animate-slideUp">
+          <h2 className="text-accent font-outfit font-bold tracking-widest text-sm uppercase">EXPERTISE</h2>
+          <h3 className="text-4xl md:text-6xl font-outfit font-black text-white leading-tight">
+            TECHNICAL <span className="text-gradient">STACK</span>
+          </h3>
+        </div>
 
-      <div className="space-y-8 max-w-4xl mx-auto">
-        {skills.map((skill, idx) => (
-          <div key={idx} className="flex flex-col md:flex-row md:items-center gap-4 group relative">
-            {/* Icon */}
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 group-hover:bg-orange-500 transition-colors duration-300 text-white">
-              {skill.icon}
-            </div>
-
-            {/* Skill Bar */}
-            <div className="flex-1 relative">
-              <div className="flex justify-between mb-2">
-                <span className="font-semibold text-orange-500 font-cursive2">{skill.name}</span>
-                <span className="text-slate-300">{skill.experience} • {skill.level}%</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skills.map((skill, idx) => (
+            <div
+              key={idx}
+              className={`glass-panel p-8 rounded-3xl border border-white/5 hover:border-accent/30 transition-all duration-500 hover:translate-y-[-5px] group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${idx * 100}ms` }}
+            >
+              <div className="flex items-center justify-between mb-8">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-accent text-white group-hover:scale-110 transition-transform">
+                  {skill.icon}
+                </div>
+                <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">{skill.category}</span>
               </div>
 
-              <div className="w-full h-2 md:h-3 bg-slate-800 rounded-full overflow-hidden relative">
-                <div
-                  className="h-2 md:h-3 rounded-full transition-all duration-1500 ease-out"
-                  style={{
-                    width: isVisible ? `${skill.level}%` : "0%",
-                    background: `linear-gradient(90deg, ${skill.color} 0%, #ffffff33 50%, ${skill.color} 100%)`,
-                  }}
-                ></div>
+              <div className="space-y-4 relative">
+                <div className="flex items-end justify-between">
+                  <h4 className="text-xl font-outfit font-bold text-white">{skill.name}</h4>
+                  <span className="text-accent font-outfit font-black text-2xl leading-none">{skill.level}%</span>
+                </div>
 
-                {/* Sparkle dots */}
-                {isVisible &&
-                  Array.from({ length: Math.floor(skill.level / 10) }).map((_, i) => (
-                    <span
-                      key={i}
-                      className="absolute w-1 h-1 bg-white rounded-full animate-sparkle"
-                      style={{
-                        left: `${(i + 1) * 10}%`,
-                        top: `${Math.random() * 50 - 5}%`,
-                      }}
-                    ></span>
-                  ))}
+                <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-accent rounded-full transition-all duration-1000 ease-out relative"
+                    style={{
+                      width: isVisible ? `${skill.level}%` : "0%"
+                    }}
+                  >
+                    <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-r from-transparent to-white/30 skew-x-[45deg] animate-pulse"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
 };
+

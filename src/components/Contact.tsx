@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Mail, Github, Instagram } from "lucide-react";
+import { Send, Mail, Github, Instagram, Linkedin } from "lucide-react";
 import { useSectionVisible } from "../hooks/useSectionVisible";
 
 export const Contact = () => {
@@ -13,105 +13,125 @@ export const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const { name, email, message } = formData;
-    const subject = encodeURIComponent(`Message from ${name}`);
+    const subject = encodeURIComponent(`Inquiry from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    const mailtoLink = `mailto:iamsanjeet1432@gmail.com?subject=${subject}&body=${body}`;
-
-    window.location.href = mailtoLink;
-
+    window.location.href = `mailto:iamsanjeet1432@gmail.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
     setFormData({ name: "", email: "", message: "" });
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full py-20 px-4 md:px-10 bg-slate-900 text-slate-200">
-      <h2 className="text-4xl font-bold text-orange-500 mb-12 font-cursive2 text-center relative inline-block">
-        Contact Me
-        <span
-          className={`absolute left-1/2 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-full ${
-            isVisible ? "animate-underline" : ""
-          }`}
-        ></span>
-      </h2>
+    <section ref={sectionRef} id="contact" className="relative w-full py-24 px-6 md:px-10 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
 
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Contact Form */}
-        <div>
-          {submitted ? (
-            <div className="text-center p-10 bg-slate-800 rounded-xl shadow-lg animate-slideUp">
-              <h3 className="text-2xl font-semibold text-white mb-4 font-cursive2">
-                Thank you!
+          {/* Left - Info */}
+          <div className={`flex-1 space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="space-y-4">
+              <h2 className="text-accent font-outfit font-bold tracking-widest text-sm uppercase">CONTACT</h2>
+              <h3 className="text-4xl md:text-6xl font-outfit font-black text-white leading-tight">
+                LET'S START A <br /><span className="text-gradient">CONVERSATION</span>
               </h3>
-              <p className="text-slate-300">Your email client should open with the message ready to send.</p>
+              <p className="text-slate-400 font-outfit text-lg max-w-md">
+                Have a project in mind or just want to say hello? I'm always open to discussing new opportunities and creative ideas.
+              </p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="bg-slate-800 rounded-xl p-8 shadow-lg space-y-6">
-              <div className="flex flex-col gap-4">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="flex-1 px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-orange-500 outline-none transition-all duration-300"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="flex-1 px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-orange-500 outline-none transition-all duration-300"
-                />
+
+            <div className="space-y-6 pt-4">
+              <a href="mailto:iamsanjeet1432@gmail.com" className="group flex items-center gap-4 text-slate-300 hover:text-white transition-colors">
+                <div className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center group-hover:bg-accent transition-all">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Email Me</p>
+                  <p className="font-bold">iamsanjeet1432@gmail.com</p>
+                </div>
+              </a>
+
+              <div className="flex gap-4 pt-4">
+                <a href="https://github.com/sanjeetk-dev" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                  <Github size={20} />
+                </a>
+                <a href="#" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                  <Linkedin size={20} />
+                </a>
+                <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="w-12 h-12 glass-panel rounded-2xl flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all">
+                  <Instagram size={20} />
+                </a>
               </div>
+            </div>
+          </div>
 
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={6}
-                className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 focus:border-orange-500 outline-none transition-all duration-300 resize-none"
-              ></textarea>
+          {/* Right - Form */}
+          <div className={`flex-[1.5] w-full transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/5 relative">
+              {submitted ? (
+                <div className="text-center py-10 space-y-6 animate-slideUp">
+                  <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center mx-auto text-accent">
+                    <Send size={40} />
+                  </div>
+                  <h4 className="text-3xl font-outfit font-black text-white">Message Sent!</h4>
+                  <p className="text-slate-400">Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                  <button onClick={() => setSubmitted(false)} className="text-accent font-bold hover:underline">Send another message</button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Your Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-white font-medium"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-white font-medium"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
 
-              <button
-                type="submit"
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-orange-500 text-white rounded-full font-medium shadow-lg hover:bg-orange-600 transition-all duration-300"
-              >
-                <span>Send Message</span>
-                <ArrowRight size={20} />
-              </button>
-            </form>
-          )}
-        </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Message</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={5}
+                      className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-white font-medium resize-none"
+                      placeholder="Tell me about your project..."
+                    ></textarea>
+                  </div>
 
-        {/* Contact Info */}
-        <div className="space-y-6 flex flex-col justify-center">
-          <p className="text-lg">
-            <Mail className="inline mr-2 text-orange-500" />{" "}
-            <a href="mailto:iamsanjeet1432@gmail.com" className="hover:text-orange-500 transition-colors">
-              iamsanjeet1432@gmail.com
-            </a>
-          </p>
-          <p className="text-lg">
-            <Github className="inline mr-2 text-orange-500" />{" "}
-            <a href="https://github.com/sanjeetk-dev" target="_blank" className="hover:text-orange-500 transition-colors">
-              github.com/sanjeetk-dev
-            </a>
-          </p>
-          <p className="text-lg">
-            <Instagram className="inline mr-2 text-orange-500" />{" "}
-            <a href="https://www.instagram.com/iamsanjeet_1432" target="_blank" className="hover:text-orange-500 transition-colors">
-              @sanjeet
-            </a>
-          </p>
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-accent text-white rounded-2xl font-black text-lg shadow-xl hover:glow-shadow transition-all group"
+                  >
+                    SEND MESSAGE
+                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
+
