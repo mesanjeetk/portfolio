@@ -94,36 +94,29 @@ export const Journey = () => {
           }
         }
       );
-
-      // Animate items individually with stagger
-      itemRefs.current.forEach((item, index) => {
-        if (!item) return;
-
-        gsap.fromTo(
-          item,
-          {
-            opacity: 0,
-            y: 50,
-            rotationX: 30,
-            transformPerspective: 1000
-          },
-          {
-            opacity: 1,
-            y: 0,
-            rotationX: 0,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 75%",
-              end: "top 50%",
-              toggleActions: "play none none reverse",
-              markers: false
-            }
+      gsap.fromTo(
+        itemRefs.current,
+        {
+          opacity: 0,
+          y: 60,
+          rotationX: 20,
+          transformPerspective: 1000,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+            markers: false
           }
-        );
-      });
+        }
+      );
     }, sectionRef);
 
     return () => {
@@ -134,7 +127,7 @@ export const Journey = () => {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!e.currentTarget) return;
-    
+
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -167,12 +160,12 @@ export const Journey = () => {
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!e.currentTarget) return;
-    
+
     const el = e.currentTarget;
-    gsap.to(el, { 
-      rotateX: 0, 
-      rotateY: 0, 
-      duration: 0.6, 
+    gsap.to(el, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.6,
       ease: "elastic.out(1, 0.3)",
       overwrite: "auto"
     });
@@ -224,12 +217,12 @@ export const Journey = () => {
             {journeyItems.map((item, idx) => (
               <div
                 key={idx}
-                ref={el => { 
+                ref={el => {
                   if (el) {
                     itemRefs.current[idx] = el;
                   }
                 }}
-                className={`relative flex flex-col md:flex-row items-center md:items-center group opacity-0 transition-opacity duration-500`}
+                className={`relative flex flex-col md:flex-row items-center md:items-center group`}
               >
                 {/* Timeline Visual Node */}
                 <div className="absolute left-4 md:left-1/2 top-1/2 w-12 h-12 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center">
