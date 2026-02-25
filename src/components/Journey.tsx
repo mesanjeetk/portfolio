@@ -1,7 +1,10 @@
 import { useSectionVisible } from "../hooks/useSectionVisible";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import { Hexagon, Cpu, Workflow, Rocket } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface JourneyItem {
   date: string;
@@ -54,7 +57,7 @@ export const Journey = () => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!lineRef.current) return;
+    if (!sectionRef.current || !lineRef.current) return;
 
     const ctx = gsap.context(() => {
       // Animate central line with scroll
@@ -66,9 +69,10 @@ export const Journey = () => {
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 70%",
-            end: "bottom 80%",
-            scrub: true
+            start: "top 75%",
+            end: "bottom 25%",
+            scrub: 0.6,
+            markers: false
           }
         }
       );
@@ -83,22 +87,23 @@ export const Journey = () => {
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 70%",
-            end: "bottom 80%",
-            scrub: true
+            start: "top 75%",
+            end: "bottom 25%",
+            scrub: 0.6,
+            markers: false
           }
         }
       );
 
-      // Animate items individually
-      itemRefs.current.forEach((item) => {
+      // Animate items individually with stagger
+      itemRefs.current.forEach((item, index) => {
         if (!item) return;
 
         gsap.fromTo(
           item,
           {
             opacity: 0,
-            y: 100,
+            y: 50,
             rotationX: 30,
             transformPerspective: 1000
           },
@@ -106,22 +111,30 @@ export const Journey = () => {
             opacity: 1,
             y: 0,
             rotationX: 0,
-            duration: 1.2,
+            duration: 0.8,
+            delay: index * 0.15,
             ease: "expo.out",
             scrollTrigger: {
               trigger: item,
-              start: "top 60%",
-              toggleActions: "play none none reverse"
+              start: "top 75%",
+              end: "top 50%",
+              toggleActions: "play none none reverse",
+              markers: false
             }
           }
         );
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!e.currentTarget) return;
+    
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -136,32 +149,41 @@ export const Journey = () => {
     gsap.to(el, {
       rotateX: rotateX,
       rotateY: rotateY,
-      duration: 0.5,
+      duration: 0.3,
       ease: "power2.out",
-      transformPerspective: 1000
+      transformPerspective: 1000,
+      overwrite: "auto"
     });
 
     // Parallax sub-elements
-    const content = el.querySelector(".parallax-content");
-    const icon = el.querySelector(".parallax-icon");
-    const tech = el.querySelector(".parallax-tech");
+    const content = el.querySelector(".parallax-content") as HTMLElement;
+    const icon = el.querySelector(".parallax-icon") as HTMLElement;
+    const tech = el.querySelector(".parallax-tech") as HTMLElement;
 
-    if (content) gsap.to(content, { x: rotateY * 0.8, y: -rotateX * 0.8, duration: 0.5 });
-    if (icon) gsap.to(icon, { x: rotateY * 2, y: -rotateX * 2, duration: 0.5 });
-    if (tech) gsap.to(tech, { x: rotateY * -0.5, y: -rotateX * -0.5, duration: 0.5 });
+    if (content) gsap.to(content, { x: rotateY * 0.8, y: -rotateX * 0.8, duration: 0.3, overwrite: "auto" });
+    if (icon) gsap.to(icon, { x: rotateY * 2, y: -rotateX * 2, duration: 0.3, overwrite: "auto" });
+    if (tech) gsap.to(tech, { x: rotateY * -0.5, y: -rotateX * -0.5, duration: 0.3, overwrite: "auto" });
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!e.currentTarget) return;
+    
     const el = e.currentTarget;
-    gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+    gsap.to(el, { 
+      rotateX: 0, 
+      rotateY: 0, 
+      duration: 0.6, 
+      ease: "elastic.out(1, 0.3)",
+      overwrite: "auto"
+    });
 
-    const content = el.querySelector(".parallax-content");
-    const icon = el.querySelector(".parallax-icon");
-    const tech = el.querySelector(".parallax-tech");
+    const content = el.querySelector(".parallax-content") as HTMLElement;
+    const icon = el.querySelector(".parallax-icon") as HTMLElement;
+    const tech = el.querySelector(".parallax-tech") as HTMLElement;
 
-    if (content) gsap.to(content, { x: 0, y: 0, duration: 0.8 });
-    if (icon) gsap.to(icon, { x: 0, y: 0, duration: 0.8 });
-    if (tech) gsap.to(tech, { x: 0, y: 0, duration: 0.8 });
+    if (content) gsap.to(content, { x: 0, y: 0, duration: 0.6, overwrite: "auto" });
+    if (icon) gsap.to(icon, { x: 0, y: 0, duration: 0.6, overwrite: "auto" });
+    if (tech) gsap.to(tech, { x: 0, y: 0, duration: 0.6, overwrite: "auto" });
   };
 
   return (
@@ -202,7 +224,11 @@ export const Journey = () => {
             {journeyItems.map((item, idx) => (
               <div
                 key={idx}
-                ref={el => { itemRefs.current[idx] = el; }}
+                ref={el => { 
+                  if (el) {
+                    itemRefs.current[idx] = el;
+                  }
+                }}
                 className={`relative flex flex-col md:flex-row items-center md:items-center group opacity-0 transition-opacity duration-500`}
               >
                 {/* Timeline Visual Node */}
