@@ -10,6 +10,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Projects = lazy(() => import("./pages/Projects"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Journey = lazy(() => import("./pages/Journey"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -37,6 +38,7 @@ export default function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/journey" element={<Journey />} />
               <Route path="*" element={<NotFound />} />
