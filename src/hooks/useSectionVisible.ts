@@ -9,7 +9,7 @@ export function useSectionVisible(threshold: number = 0.1) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target); // stops observing after first trigger
+          observer.unobserve(entry.target);
         }
       },
       { threshold }

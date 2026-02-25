@@ -150,6 +150,17 @@ const ProjectCard = React.memo(
 
 export default function Projects() {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeTech, setActiveTech] = useState<string | null>(null);
+
+  const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+  const allTechs = Array.from(new Set(projects.flatMap((p) => p.techStack)));
+
+  const filteredProjects = projects.filter((project) => {
+    const categoryMatch = activeCategory === "All" || project.category === activeCategory;
+    const techMatch = !activeTech || project.techStack.includes(activeTech);
+    return categoryMatch && techMatch;
+  });
 
   return (
     <section className="w-full min-h-screen py-24 px-6 md:px-10 overflow-hidden relative" aria-labelledby="projects-title">
@@ -166,7 +177,7 @@ export default function Projects() {
         <span className="text-[25vw] font-outfit font-black tracking-tighter uppercase whitespace-nowrap">CRAFTED</span>
       </div>
 
-      <div className="max-w-7xl mx-auto space-y-32 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-20 relative z-10">
 
         <div className="max-w-3xl space-y-6 animate-slideUp">
           <h2 className="text-accent font-outfit font-bold tracking-[0.3em] text-sm uppercase px-1">SELECTED WORKS</h2>
@@ -176,23 +187,88 @@ export default function Projects() {
           </h1>
         </div>
 
-        {/* Staggered Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start pb-32" role="list">
-          {projects.map((project, idx) => (
-            <div key={idx} role="listitem">
-              <ProjectCard project={project} index={idx} onClick={() => setActiveProject(project)} />
+        {/* Filters */}
+        <div className="space-y-6 border-y border-white/10 py-8">
+          {/* Category Filter */}
+          <div>
+            <h3 className="text-xs font-bold text-accent uppercase tracking-wider mb-4">Filter by Category</h3>
+            <div className="flex flex-wrap gap-3">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-5 py-2 rounded-full font-bold uppercase tracking-widest text-xs transition-all ${
+                    activeCategory === cat
+                      ? "bg-accent text-white shadow-lg"
+                      : "border border-white/10 text-slate-400 hover:border-accent hover:text-white"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
-          ))}
+          </div>
 
-          <div className="flex flex-col items-center justify-center pointer-events-none py-20 animate-slideUp" aria-hidden="true">
-            <div className="w-48 h-48 border-2 border-accent/10 rounded-full animate-float flex items-center justify-center relative">
-              <div className="absolute inset-0 bg-accent/5 rounded-full blur-2xl"></div>
-              <div className="w-4 h-4 bg-accent/30 rounded-full animate-pulse"></div>
-              <p className="absolute -bottom-10 whitespace-nowrap text-[10px] font-outfit font-black text-slate-700 tracking-[0.5em] uppercase">Innovating daily</p>
+          {/* Tech Filter */}
+          <div>
+            <h3 className="text-xs font-bold text-accent uppercase tracking-wider mb-4">Filter by Technology</h3>
+            <div className="flex flex-wrap gap-2">
+              {allTechs.map((tech) => (
+                <button
+                  key={tech}
+                  onClick={() => setActiveTech(activeTech === tech ? null : tech)}
+                  className={`px-4 py-2 rounded-lg font-semibold text-xs transition-all ${
+                    activeTech === tech
+                      ? "bg-accent text-white"
+                      : "bg-white/5 text-slate-400 hover:bg-white/10 hover:border-accent"
+                  }`}
+                >
+                  {tech}
+                </button>
+              ))}
             </div>
-            <div className="mt-20 w-px h-64 bg-gradient-to-t from-transparent via-accent/20 to-transparent"></div>
           </div>
         </div>
+
+        {/* Results Count */}
+        <p className="text-slate-400 text-sm">
+          Showing {filteredProjects.length} of {projects.length} projects
+        </p>
+
+        {filteredProjects.length > 0 ? (
+          <>
+            {/* Staggered Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start pb-32" role="list">
+              {filteredProjects.map((project, idx) => (
+                <div key={idx} role="listitem">
+                  <ProjectCard project={project} index={idx} onClick={() => setActiveProject(project)} />
+                </div>
+              ))}
+
+              <div className="flex flex-col items-center justify-center pointer-events-none py-20 animate-slideUp" aria-hidden="true">
+                <div className="w-48 h-48 border-2 border-accent/10 rounded-full animate-float flex items-center justify-center relative">
+                  <div className="absolute inset-0 bg-accent/5 rounded-full blur-2xl"></div>
+                  <div className="w-4 h-4 bg-accent/30 rounded-full animate-pulse"></div>
+                  <p className="absolute -bottom-10 whitespace-nowrap text-[10px] font-outfit font-black text-slate-700 tracking-[0.5em] uppercase">Innovating daily</p>
+                </div>
+                <div className="mt-20 w-px h-64 bg-gradient-to-t from-transparent via-accent/20 to-transparent"></div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-slate-400 text-lg mb-6">No projects found matching your filters.</p>
+            <button
+              onClick={() => {
+                setActiveCategory("All");
+                setActiveTech(null);
+              }}
+              className="px-6 py-3 border border-accent text-accent rounded-xl font-bold hover:bg-accent hover:text-white transition-all"
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
 
         {/* Modal */}
         {activeProject && (
@@ -296,3 +372,5 @@ export default function Projects() {
     </section>
   );
 }
+
+{/* <a href='https://ko-fi.com/U7U71UWQ2U' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> */}

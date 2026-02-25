@@ -110,7 +110,7 @@ export const Journey = () => {
             ease: "expo.out",
             scrollTrigger: {
               trigger: item,
-              start: "top 90%",
+              start: "top 60%",
               toggleActions: "play none none reverse"
             }
           }
@@ -204,8 +204,6 @@ export const Journey = () => {
                 key={idx}
                 ref={el => { itemRefs.current[idx] = el; }}
                 className={`relative flex flex-col md:flex-row items-center md:items-center group opacity-0 transition-opacity duration-500`}
-                onMouseMove={(e) => handleMouseMove(e)}
-                onMouseLeave={handleMouseLeave}
               >
                 {/* Timeline Visual Node */}
                 <div className="absolute left-4 md:left-1/2 top-1/2 w-12 h-12 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center">
@@ -221,7 +219,10 @@ export const Journey = () => {
                 </div>
 
                 {/* The Journey Card */}
-                <div className={`w-full md:w-[45%] ${idx % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
+                <div className={`w-full md:w-[45%] ${idx % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}
+                  onMouseMove={(e) => handleMouseMove(e)}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <div className="relative group overflow-visible">
                     {/* Card Backdrop with Pattern */}
                     <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/5 group-hover:border-accent/20 group-hover:bg-white/[0.04] transition-all duration-500" />
@@ -259,7 +260,7 @@ export const Journey = () => {
                       {/* Technical Footer */}
                       <div className="pt-6 border-t border-white/5 flex items-center justify-between">
                         <div className="flex gap-1">
-                          {[1, 2, 3].map(i => <div key={i} className={`w-1 h-1 rounded-full ${i === idx + 1 ? 'bg-accent' : 'bg-white/10'}`} />)}
+                          {[1, 2, 3, 4].map(i => <div key={i} className={`w-1 h-1 rounded-full ${i === idx + 1 ? 'bg-accent' : 'bg-white/10'}`} />)}
                         </div>
                         <span className="text-[10px] font-mono text-slate-600 tracking-tighter italic">LOG_STATUS: ARCHIVED</span>
                       </div>

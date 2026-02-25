@@ -9,6 +9,7 @@ import { Loader } from "./components/Loader";
 const Home = lazy(() => import("./pages/Home"));
 const Projects = lazy(() => import("./pages/Projects"));
 const About = lazy(() => import("./pages/About"));
+const Blog = lazy(() => import("./pages/Blog"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Journey = lazy(() => import("./pages/Journey"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -29,23 +30,22 @@ export default function App() {
       <ScrollToTop />
       <Navbar />
       <div className="bg-obsidian text-white pt-20 relative min-h-screen">
-
-
         <main>
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/journey" element={<Journey />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
-
         <Footer />
       </div>
+      
     </Router>
   );
 }

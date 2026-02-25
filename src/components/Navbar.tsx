@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MessageSquare, Menu, X } from "lucide-react";
+import { MessageSquare, Menu, X, Download } from "lucide-react";
 import { Magnetic } from "./Magnetic";
 
 export function Navbar() {
@@ -19,6 +19,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
+    { name: "Blog", path: "/blog" },
     { name: "About", path: "/about" },
     { name: "Journey", path: "/journey" },
   ];
@@ -64,6 +65,20 @@ export function Navbar() {
               </li>
             ))}
           </ul>
+
+          <button
+            onClick={() => {
+              const link = document.createElement("a");
+              link.href = "/resume.pdf";
+              link.download = "Sanjeet-Resume.pdf";
+              link.click();
+            }}
+            className="flex items-center gap-2 px-6 py-3 glass-panel border border-white/10 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white/5 transition-all group"
+            aria-label="Download Resume"
+          >
+            <Download size={16} aria-hidden="true" />
+            RESUME
+          </button>
 
           <Magnetic>
             <Link to="/contact">

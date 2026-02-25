@@ -3,6 +3,14 @@ import { AboutMe } from "../components/AboutMe"
 import { Projects } from "../components/Project"
 import { Skills } from "../components/Skills"
 import { Journey } from "../components/Journey"
+import { Certifications } from "../components/Certifications"
+import { Awards } from "../components/Awards"
+import { GitHubStats } from "../components/GitHubStats"
+import { ReadingList } from "../components/ReadingList"
+import { CaseStudy } from "../components/CaseStudy"
+import { FAQ } from "../components/FAQ"
+import { Newsletter } from "../components/Newsletter"
+import { Support } from "../components/Support"
 import { Contact } from "../components/Contact"
 
 const HomePage = () => {
@@ -12,6 +20,14 @@ const HomePage = () => {
       <AboutMe className="mb-10" />
       <Projects />
       <Skills />
+      <Certifications />
+      <Awards />
+      <CaseStudy />
+      <GitHubStats />
+      <ReadingList />
+      <FAQ />
+      <Newsletter />
+      <Support />
       <Journey />
       <Contact />
     </section>
