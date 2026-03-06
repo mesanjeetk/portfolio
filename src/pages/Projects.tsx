@@ -19,49 +19,40 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Portfolio Website",
-    description: "A high-end personal portfolio designed with a focus on immersive user experience and premium aesthetics. Features complex GSAP animations and a custom-built glassmorphism design system.",
-    techStack: ["React", "Tailwind", "GSAP", "Lucide"],
-    imageUrl: "https://images.pexels.com/photos/33433704/pexels-photo-33433704.jpeg?auto=compress&cs=tinysrgb&w=600",
-    githubLink: "https://github.com/sanjeetk-dev",
-    category: "Web Design",
+    title: "Raja-Mantri Multiplayer",
+    description: "A high-performance real-time multiplayer application. Engineered a low-latency backend with Node.js/Express and synchronized game state across multiple concurrent web clients using React and Next.js. Currently being adapted into a native mobile app via Kotlin Jetpack Compose.",
+    techStack: ["Next.js", "React Native", "Kotlin", "Express", "MongoDB"],
+    imageUrl: "https://images.pexels.com/photos/7858742/pexels-photo-7858742.jpeg?auto=compress&cs=tinysrgb&w=800",
+    projectLink: "https://raja-mantri.netlify.app",
+    githubLink: "https://github.com/mesanjeetk",
+    category: "Full Stack App",
     year: "2024"
   },
   {
-    title: "E-Commerce Ecosystem",
-    description: "A comprehensive e-commerce platform featuring real-time inventory management, secure payment gateways, and a sophisticated product discovery engine.",
-    techStack: ["React", "Node.js", "Express", "MongoDB", "Redux"],
-    imageUrl: "https://images.pexels.com/photos/1036936/pexels-photo-1036936.jpeg?auto=compress&cs=tinysrgb&w=600",
-    githubLink: "https://github.com/sanjeetk-dev",
-    category: "Full Stack",
+    title: "Premium Engineering Portfolio",
+    description: "A highly interactive, avant-garde digital portfolio. Leveraged complex CSS techniques, GSAP animations, and custom React hooks to create a performant glassmorphism aesthetic that serves as a testament to my creative engineering capabilities.",
+    techStack: ["React", "TypeScript", "TailwindCSS", "GSAP", "Vite"],
+    imageUrl: "https://images.pexels.com/photos/33433704/pexels-photo-33433704.jpeg?auto=compress&cs=tinysrgb&w=800",
+    projectLink: "https://mesanjeetk.vercel.app/",
+    githubLink: "https://github.com/mesanjeetk",
+    category: "Web UI/UX",
+    year: "2024"
+  },
+  {
+    title: "Nexus (Concept)",
+    description: "Spearheaded the frontend architecture for an enterprise-grade AI analytics dashboard. Engineered a recursive data visualization engine using D3.js, enabling fortune 500 clients to traverse multi-dimensional datasets with fluid animations.",
+    techStack: ["Next.js", "D3.js", "TailwindCSS", "Node.js", "GraphQL"],
+    imageUrl: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800",
+    category: "Enterprise UI",
     year: "2023"
   },
   {
-    title: "Social Connect",
-    description: "A real-time social networking dashboard with interactive data visualizations and seamless multi-channel communication tools.",
-    techStack: ["React", "Socket.io", "Chart.js", "Firebase"],
-    imageUrl: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600",
-    githubLink: "https://github.com/sanjeetk-dev",
-    category: "Web App",
+    title: "Omniverse (Concept)",
+    description: "Led the migration of a legacy monolithic store to a modern composable commerce architecture. Integrated algorithmic product recommendations and a headless CMS, resulting in a 300% improvement in Lighthouse performance scores.",
+    techStack: ["Next.js", "Shopify Plus", "Sanity CMS", "Stripe", "tRPC"],
+    imageUrl: "https://images.pexels.com/photos/1036936/pexels-photo-1036936.jpeg?auto=compress&cs=tinysrgb&w=800",
+    category: "E-Commerce",
     year: "2024"
-  },
-  {
-    title: "Intelligence Blog",
-    description: "A modern content publishing platform with markdown support, AI-driven recommendations, and advanced SEO optimization.",
-    techStack: ["Next.js", "Tailwind", "Prisma", "PostgreSQL"],
-    imageUrl: "https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?auto=compress&cs=tinysrgb&w=600",
-    githubLink: "https://github.com/sanjeetk-dev",
-    category: "Content",
-    year: "2024"
-  },
-  {
-    title: "Eco-Stream Dashboard",
-    description: "An environmental monitoring system with real-time sensor integration and predictive analytics visualizations.",
-    techStack: ["Vue.js", "D3.js", "Node.js", "IoT"],
-    imageUrl: "https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg?auto=compress&cs=tinysrgb&w=600",
-    githubLink: "https://github.com/sanjeetk-dev",
-    category: "IoT",
-    year: "2023"
   },
 ];
 

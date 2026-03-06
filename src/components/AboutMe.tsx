@@ -9,8 +9,8 @@ interface AboutMeProps {
 }
 
 export const AboutMe: React.FC<AboutMeProps> = ({
-  title = "ABOUT ME",
-  description = "I'm a dedicated Full Stack Developer with a passion for building seamless digital experiences. With over a year of professional experience, I've had the privilege of working on diverse projects that challenge my creativity and technical skills. My approach combines clean code with intuitive design to deliver performance-driven solutions.",
+  title = "ENGINEERING PHILOSOPHY",
+  description = "I am a self-taught Full Stack and Mobile App Developer passionate about building seamless digital experiences. Leveraging a mastery of modern web frameworks and native Android development, I architecture solutions that bridge platforms without sacrificing performance. My focus spans real-time backend systems, responsive web apps, and native Kotlin mobile experiences.",
   image = "/image.jpg",
   className = ""
 }) => {
@@ -56,14 +56,14 @@ export const AboutMe: React.FC<AboutMeProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="glass-panel p-6 rounded-2xl border border-white/5 hover:border-accent/30 transition-all group">
                 <Briefcase className="text-accent mb-4 group-hover:scale-110 transition-transform" size={24} />
-                <h4 className="text-white font-bold text-xl mb-1">1+ Year</h4>
-                <p className="text-slate-500 text-sm">Professional experience in web development</p>
+                <h4 className="text-white font-bold text-xl mb-1">Dual-Platform</h4>
+                <p className="text-slate-500 text-sm">Expertise in Web and Native Android</p>
               </div>
 
               <div className="glass-panel p-6 rounded-2xl border border-white/5 hover:border-accent/30 transition-all group">
                 <CheckCircle className="text-accent mb-4 group-hover:scale-110 transition-transform" size={24} />
-                <h4 className="text-white font-bold text-xl mb-1">5+ Projects</h4>
-                <p className="text-slate-500 text-sm">Successfully delivered high-quality applications</p>
+                <h4 className="text-white font-bold text-xl mb-1">Self-Taught</h4>
+                <p className="text-slate-500 text-sm">Driven by passion and continuous learning</p>
               </div>
             </div>
 

@@ -9,12 +9,12 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "Frontend", level: 90, icon: <Layers size={20} />, category: "Core" },
-  { name: "Backend", level: 75, icon: <Server size={20} />, category: "Core" },
-  { name: "Database", level: 70, icon: <Database size={20} />, category: "Data" },
-  { name: "React / Vite", level: 88, icon: <Globe size={20} />, category: "Framework" },
-  { name: "TypeScript", level: 82, icon: <Code size={20} />, category: "Language" },
-  { name: "Node.js", level: 78, icon: <Server size={20} />, category: "Runtime" },
+  { name: "React & Next.js", level: 95, icon: <Layers size={20} />, category: "Frontend" },
+  { name: "React Native (Expo)", level: 85, icon: <Globe size={20} />, category: "Mobile" },
+  { name: "Kotlin & Jetpack Compose", level: 80, icon: <Code size={20} />, category: "Android" },
+  { name: "Node.js & Express", level: 90, icon: <Server size={20} />, category: "Backend" },
+  { name: "MongoDB / Mongoose", level: 88, icon: <Database size={20} />, category: "Database" },
+  { name: "Real-time (WebSockets)", level: 85, icon: <Server size={20} />, category: "Networking" },
 ];
 
 export const Skills = () => {

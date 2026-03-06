@@ -11,32 +11,32 @@ interface Award {
 
 const awards: Award[] = [
   {
-    title: "Best Developer Award",
-    organization: "Tech Community 2024",
+    title: "Full-Stack Production Deployment",
+    organization: "Raja-Mantri",
     date: "2024",
-    description: "Recognized for outstanding contributions to open source projects.",
-    category: "Recognition",
+    description: "Successfully architected, connected, and deployed a real-time multiplayer application handling concurrent WebSocket connections.",
+    category: "Milestone",
   },
   {
-    title: "Hackathon Winner",
-    organization: "Code Innovation Challenge",
+    title: "Dual-Platform Engineering",
+    organization: "Web & Mobile",
     date: "2024",
-    description: "Won first place for building an innovative AI-powered solution.",
-    category: "Hackathon",
+    description: "Bridged the gap between React/Next.js frontend architectures and native Android development using Kotlin Jetpack Compose.",
+    category: "Achievement",
   },
   {
-    title: "Top Performer",
-    organization: "Web Development Excellence",
+    title: "Advanced State & Data Flow",
+    organization: "Frontend Ecosystem",
     date: "2023",
-    description: "Awarded for creating cutting-edge web experiences.",
-    category: "Excellence",
+    description: "Mastered complex state management and seamless UI integrations, utilizing Context API, Redux patterns, and performant data fetching.",
+    category: "Competency",
   },
   {
-    title: "Innovation Award",
-    organization: "Digital Pioneers",
+    title: "Creative UI / UX Architecture",
+    organization: "Design Systems",
     date: "2023",
-    description: "Recognized for innovative approach to solving complex problems.",
-    category: "Innovation",
+    description: "Developed deep expertise in translating high-fidelity design concepts into pixel-perfect, highly animated (GSAP/CSS) user interfaces.",
+    category: "Competency",
   },
 ];
 

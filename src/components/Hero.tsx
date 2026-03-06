@@ -97,14 +97,14 @@ export const Hero = () => {
             <div className="space-y-2">
               <h1 id="hero-title" className="hero-reveal text-6xl md:text-9xl font-outfit font-black text-white leading-[0.9] tracking-tighter">
                 CRAFTING <br />
-                <span className="text-gradient">DIGITAL</span> <br />
-                VERSES
+                <span className="text-gradient">SEAMLESS</span> <br />
+                EXPERIENCES
               </h1>
             </div>
 
             <div className="hero-reveal max-w-lg">
               <p className="text-slate-400 font-outfit text-xl md:text-2xl leading-relaxed">
-                Turning complex logic into <span className="text-white font-bold">immersive experiences</span>. A fusion of engineering precision and high-end design.
+                Bridging the gap between platforms. Specializing in high-performance <span className="text-white font-bold">Web Architectures</span> and Native <span className="text-white font-bold">Mobile Apps</span>.
               </p>
             </div>
 
@@ -152,8 +152,8 @@ export const Hero = () => {
                 ))}
               </div>
               <div className="ml-4">
-                <p className="text-[10px] font-outfit font-black text-white leading-none">100% SUCCESS</p>
-                <p className="text-[8px] font-outfit font-bold text-slate-500 uppercase">Rate globally</p>
+                <p className="text-[10px] font-outfit font-black text-white leading-none">100% SELF TAUGHT</p>
+                <p className="text-[8px] font-outfit font-bold text-slate-500 uppercase">Engineer</p>
               </div>
             </div>
 

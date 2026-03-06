@@ -17,36 +17,36 @@ interface JourneyItem {
 
 const journeyItems: JourneyItem[] = [
   {
-    date: "MAR 2024",
-    title: "The First Line",
-    description: "Architected the initial foundation of my digital career. Mastered semantic structure and CSS logic, treating code as a medium for visual poetry.",
-    tech: "01001000 01010100 01001101 01001100",
+    date: "THE BEGINNING",
+    title: "The Self-Taught Genesis",
+    description: "Started my journey into software engineering through rigorous independent study. Mastered semantic HTML, CSS, and core JavaScript logic, treating the web as a canvas for interactive development.",
+    tech: "HTML5 // CSS3 // JAVASCRIPT",
     icon: <Hexagon size={16} />,
-    coord: "40.7128° N, 74.0060° W"
+    coord: "Nalanda, IN"
   },
   {
-    date: "AUG 2024",
-    title: "Dynamic Reactivity",
-    description: "Pivoted to component-driven thinking. Built high-fidelity interfaces with React, orchestrating state and logic into seamless user experiences.",
-    tech: "REACT.JS // VITE // GSAP",
+    date: "PHASE 02",
+    title: "React & Component Logic",
+    description: "Transitioned to modern frameworks, mastering React ecosystem. Learned to architect high-fidelity components, orchestrate state management, and build seamless single-page applications.",
+    tech: "REACT // NEXT.JS // TAILWIND",
     icon: <Cpu size={16} />,
-    coord: "34.0522° N, 118.2437° W"
+    coord: "Nalanda, IN"
   },
   {
-    date: "MAR 2025",
-    title: "System Scaling",
-    description: "Expanded into the backend cosmos. Mastered Node.js and MongoDB, building the nervous system for complex, data-driven applications.",
+    date: "PHASE 03",
+    title: "Full-Stack Architecture",
+    description: "Expanded my expertise into the backend cosmos. Developed real-time server logic using Node.js and Express, coupled with Mongoose for persistent database management, powering apps like Raja-Mantri.",
     tech: "NODE // EXPRESS // MONGODB",
     icon: <Workflow size={16} />,
-    coord: "51.5074° N, 0.1278° W"
+    coord: "Nalanda, IN"
   },
   {
-    date: "AUG 2025",
-    title: "Production Mastery",
-    description: "Reached the definitive professional milestone. Launched a high-performance, avant-garde digital artifact optimized for impact.",
-    tech: "DEPLOY // OPTIMIZE // SCALE",
+    date: "PRESENT",
+    title: "Bridging Web & Mobile",
+    description: "Achieved dual-platform mastery. Translating complex React architectures into high-performance native Android experiences utilizing Kotlin and Jetpack Compose.",
+    tech: "KOTLIN // JETPACK COMPOSE // EXPO",
     icon: <Rocket size={16} />,
-    coord: "35.6895° N, 139.6917° E"
+    coord: "Nalanda, IN"
   },
 ];
 
