@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useSectionVisible } from "../hooks/useSectionVisible";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Hexagon, Cpu, Workflow, Rocket } from "lucide-react";

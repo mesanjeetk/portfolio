@@ -49,7 +49,7 @@ export const Projects = () => {
     });
 
     // Parallax Images and Staggered Cards
-    gsap.utils.toArray<HTMLElement>(".proj-card").forEach((card, i) => {
+    gsap.utils.toArray<HTMLElement>(".proj-card").forEach((card, _i) => {
       // Main card reveal
       gsap.from(card, {
         scrollTrigger: {
