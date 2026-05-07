@@ -1,6 +1,7 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { ArrowRight, Play, LayoutGrid } from "lucide-react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Link } from "react-router-dom";
 import { Meta } from "./Meta";
 
@@ -10,63 +11,84 @@ export const Hero = () => {
   const bgTextRef = useRef<HTMLDivElement>(null);
   const imageStageRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Entrance Animations
-      gsap.from(".hero-reveal", {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.1,
-        ease: "power4.out"
-      });
+  useGSAP(() => {
+    // Staggered words reveal using perspective
+    gsap.set(".hero-word-wrapper", { perspective: 800 });
+    gsap.from(".hero-word", {
+      y: 150,
+      opacity: 0,
+      rotateX: -80,
+      transformOrigin: "0% 50% -50",
+      duration: 1.8,
+      stagger: 0.1,
+      ease: "expo.out"
+    });
 
-      gsap.from(".hero-image-scale", {
-        scale: 1.2,
-        opacity: 0,
+    gsap.from(".hero-sub", {
+      y: 40,
+      opacity: 0,
+      duration: 1.5,
+      delay: 0.6,
+      ease: "power3.out"
+    });
+
+    gsap.from(".hero-btn", {
+      scale: 0.9,
+      y: 20,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.15,
+      delay: 0.8,
+      ease: "back.out(1.5)"
+    });
+
+    gsap.from(".hero-image-scale", {
+      scale: 0.85,
+      opacity: 0,
+      rotationY: 15,
+      duration: 2.5,
+      delay: 0.4,
+      ease: "expo.out"
+    });
+
+    // Elegant Mouse Parallax Effect
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const xPos = (clientX / window.innerWidth - 0.5);
+      const yPos = (clientY / window.innerHeight - 0.5);
+
+      gsap.to(textRef.current, {
+        x: xPos * 40,
+        y: yPos * 40,
         duration: 2,
-        ease: "power2.out"
+        ease: "power3.out"
       });
 
-      // Mouse Parallax Effect
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5);
-        const yPos = (clientY / window.innerHeight - 0.5);
+      gsap.to(bgTextRef.current, {
+        x: xPos * -100,
+        y: yPos * -100,
+        duration: 2.5,
+        ease: "power3.out"
+      });
 
-        gsap.to(textRef.current, {
-          x: xPos * 30,
-          y: yPos * 30,
-          duration: 0.8,
-          ease: "power2.out"
-        });
+      gsap.to(imageStageRef.current, {
+        x: xPos * -50,
+        y: yPos * -50,
+        rotationY: xPos * 10,
+        rotationX: -yPos * 10,
+        duration: 1.8,
+        ease: "power3.out"
+      });
+    };
 
-        gsap.to(bgTextRef.current, {
-          x: xPos * -60,
-          y: yPos * -60,
-          duration: 1,
-          ease: "power2.out"
-        });
-
-        gsap.to(imageStageRef.current, {
-          x: xPos * 50,
-          y: yPos * 50,
-          duration: 0.6,
-          ease: "power2.out"
-        });
-      };
-
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, { scope: containerRef });
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[110vh] flex items-center justify-center overflow-hidden py-32"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-32"
       aria-labelledby="hero-title"
     >
       <Meta
@@ -77,50 +99,56 @@ export const Hero = () => {
       {/* Background Cinematic Text Layer */}
       <div
         ref={bgTextRef}
-        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-5"
+        className="absolute w-[150vw] left-[-25vw] inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.03]"
         aria-hidden="true"
       >
-        <span className="text-[25vw] font-outfit font-black leading-none tracking-tighter text-white">CREATIVE</span>
-        <span className="text-[25vw] font-outfit font-black leading-none tracking-tighter text-white -mt-[5vw]">ENGINEER</span>
+        <span className="text-[25vw] font-outfit font-black leading-none tracking-tighter text-white whitespace-nowrap">CREATIVE</span>
+        <span className="text-[25vw] font-outfit font-black leading-none tracking-tighter text-white -mt-[5vw] whitespace-nowrap">ENGINEER</span>
       </div>
 
       <div className="max-w-7xl mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
         {/* Main Display Area (Left + Center) */}
-        <div className="lg:col-span-8 relative">
-          <div ref={textRef} className="space-y-8">
-            <div className="hero-reveal inline-flex items-center gap-4 px-6 py-2 glass-panel rounded-full border border-white/10 group cursor-default">
-              <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-              <span className="text-[10px] font-outfit font-black text-slate-400 uppercase tracking-[0.3em]">Available for projects</span>
+        <div className="lg:col-span-8 relative perspective-[1000px]">
+          <div ref={textRef} className="space-y-10">
+            <div className="hero-sub inline-flex items-center gap-4 px-6 py-2 glass-panel rounded-full border border-white/5 group cursor-default shadow-lg">
+              <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse shadow-[0_0_10px_rgba(0,240,255,0.8)]"></div>
+              <span className="text-xs font-outfit font-bold text-slate-300 uppercase tracking-[0.25em]">Available for Work</span>
             </div>
 
-            <div className="space-y-2">
-              <h1 id="hero-title" className="hero-reveal text-6xl md:text-9xl font-outfit font-black text-white leading-[0.9] tracking-tighter">
-                CRAFTING <br />
-                <span className="text-gradient">SEAMLESS</span> <br />
-                EXPERIENCES
+            <div className="space-y-4">
+              <h1 id="hero-title" className="text-6xl md:text-[8rem] font-outfit font-black text-white leading-[0.85] tracking-tighter">
+                <div className="hero-word-wrapper overflow-hidden pb-4">
+                  <div className="hero-word inline-block">CRAFTING</div>
+                </div>
+                <div className="hero-word-wrapper overflow-hidden pb-4">
+                  <div className="hero-word inline-block text-gradient">SEAMLESS</div>
+                </div>
+                <div className="hero-word-wrapper overflow-hidden pb-4">
+                  <div className="hero-word inline-block">EXPERIENCES</div>
+                </div>
               </h1>
             </div>
 
-            <div className="hero-reveal max-w-lg">
-              <p className="text-slate-400 font-outfit text-xl md:text-2xl leading-relaxed">
-                Bridging the gap between platforms. Specializing in high-performance <span className="text-white font-bold">Web Architectures</span> and Native <span className="text-white font-bold">Mobile Apps</span>.
+            <div className="hero-sub max-w-xl">
+              <p className="text-slate-400 font-inter text-xl md:text-2xl font-light leading-relaxed">
+                Bridging the gap between platforms. Specializing in high-performance <span className="text-white font-medium">Web Architectures</span> and Native <span className="text-white font-medium">Mobile Apps</span>.
               </p>
             </div>
 
-            <div className="hero-reveal flex flex-wrap gap-6 pt-4">
-              <Link to="/projects">
+            <div className="flex flex-wrap gap-6 pt-4">
+              <Link to="/projects" className="hero-btn perspective-[800px]">
                 <button
-                  className="px-10 py-5 bg-accent text-white rounded-2xl font-black text-lg shadow-xl hover:glow-shadow transition-all group flex items-center gap-4"
+                  className="px-10 py-5 bg-accent text-obsidian rounded-2xl font-black text-lg shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] transition-all duration-300 transform hover:scale-105 group flex items-center gap-4 will-change-transform"
                   aria-label="View curated work and projects"
                 >
                   EXPLORE WORK
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
-              <Link to="/contact">
+              <Link to="/contact" className="hero-btn">
                 <button
-                  className="px-10 py-5 glass-panel text-white rounded-2xl font-black text-lg border border-white/5 hover:border-accent/30 transition-all flex items-center gap-4"
+                  className="px-10 py-5 glass-panel text-white rounded-2xl font-black text-lg border border-white/10 hover:border-accent/50 hover:bg-white/5 transition-all duration-300 transform hover:scale-105 flex items-center gap-4 will-change-transform"
                   aria-label="Contact Sanjeet for collaboration"
                 >
                   <Play size={18} fill="currentColor" aria-hidden="true" />
@@ -132,56 +160,57 @@ export const Hero = () => {
         </div>
 
         {/* Visual Stage (Right) */}
-        <div className="lg:col-span-4 relative flex justify-center lg:justify-end">
+        <div className="lg:col-span-4 relative flex justify-center lg:justify-end perspective-[1000px]">
           <div
             ref={imageStageRef}
-            className="relative w-full max-w-sm aspect-[3/4] hero-image-scale"
+            className="relative w-full max-w-sm aspect-[3/4.5] hero-image-scale"
+            style={{ transformStyle: 'preserve-3d' }}
             aria-hidden="true"
           >
             {/* Overlapping Glass Shapes */}
-            <div className="absolute -top-12 -left-12 w-32 h-32 glass-panel rounded-[2rem] border border-white/10 -rotate-12 z-20 flex items-center justify-center text-accent">
-              <LayoutGrid size={40} />
+            <div className="absolute -top-12 -left-12 w-32 h-32 glass-panel rounded-[2rem] border border-white/5 -rotate-12 z-20 flex items-center justify-center text-accent shadow-2xl backdrop-blur-xl translate-z-[50px]">
+              <LayoutGrid size={40} className="opacity-80" />
             </div>
 
-            <div className="absolute -bottom-8 -right-8 w-48 h-20 glass-panel rounded-2xl border border-white/10 rotate-6 z-20 flex items-center justify-center px-8">
+            <div className="absolute -bottom-8 -right-8 w-48 h-20 glass-panel rounded-2xl border border-white/5 rotate-6 z-20 flex items-center justify-center px-8 shadow-2xl backdrop-blur-xl translate-z-[80px]">
               <div className="flex -space-x-3">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-obsidian bg-slate-800 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="client avatar" height={40} width={40} />
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-obsidian bg-slate-800 overflow-hidden shadow-lg">
+                    <img src={`https://i.pravatar.cc/100?img=${i + 15}`} alt="client avatar" height={40} width={40} />
                   </div>
                 ))}
               </div>
-              <div className="ml-4">
-                <p className="text-[10px] font-outfit font-black text-white leading-none">100% SELF TAUGHT</p>
-                <p className="text-[8px] font-outfit font-bold text-slate-500 uppercase">Engineer</p>
+              <div className="ml-4 flex flex-col justify-center">
+                <p className="text-[10px] font-outfit font-black text-white leading-none tracking-wider">100% SELF TAUGHT</p>
+                <p className="text-[8px] font-inter font-medium text-slate-400 uppercase mt-1">Engineer</p>
               </div>
             </div>
 
             {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-[4rem] overflow-hidden glass-panel p-2 group shadow-2xl">
-              <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative">
+            <div className="relative w-full h-full rounded-[3rem] overflow-hidden glass-panel p-2 group shadow-[0_20px_50px_rgba(0,0,0,0.5)] translate-z-[0px]">
+              <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent z-10 pointer-events-none" />
                 <img
                   src="/image.jpg"
                   alt="Sanjeet Kumar - Creative Engineer"
                   fetchPriority="high"
                   loading="eager"
-                  className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
+                  className="w-full h-full object-cover grayscale brightness-75 scale-105 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-100 transition-all duration-[1.5s] ease-out will-change-transform"
                 />
-                <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors duration-1000"></div>
               </div>
             </div>
 
             {/* Decorative Glows */}
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-accent/20 rounded-full blur-[120px]"></div>
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] bg-accent/20 rounded-full blur-[100px] opacity-70"></div>
           </div>
         </div>
 
       </div>
 
       {/* Floating Decorative Elements */}
-      <div className="absolute top-1/4 left-10 w-2 h-2 bg-accent rounded-full animate-float opacity-30" aria-hidden="true"></div>
-      <div className="absolute bottom-1/4 right-20 w-3 h-3 bg-white rounded-full animate-float opacity-20" style={{ animationDelay: '1s' }} aria-hidden="true"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-px h-64 bg-gradient-to-t from-transparent via-accent/30 to-transparent -z-10" aria-hidden="true"></div>
+      <div className="absolute top-1/4 left-10 w-2 h-2 bg-accent rounded-full animate-float opacity-50 shadow-[0_0_10px_rgba(0,240,255,0.8)]" aria-hidden="true"></div>
+      <div className="absolute bottom-1/4 right-20 w-3 h-3 bg-white rounded-full animate-float opacity-30 shadow-[0_0_10px_rgba(255,255,255,0.8)]" style={{ animationDelay: '1s' }} aria-hidden="true"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-px h-[40vh] bg-gradient-to-t from-transparent via-accent/20 to-transparent -z-10" aria-hidden="true"></div>
     </section>
   );
 }

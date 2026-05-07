@@ -24,20 +24,22 @@
    GLOBAL STYLES
 ========================= */
 :root {
-  --color-obsidian: #020617;
-  --color-obsidian-light: #0f172a;
-  --color-accent: #6366f1;
-  --color-accent-glow: rgba(99, 102, 241, 0.4);
-  --color-slate-muted: #94a3b8;
+  --color-obsidian: #050505;
+  --color-obsidian-light: #0f0f11;
+  --color-accent: #00f0ff;
+  /* Neon Cyan/Blue Accent */
+  --color-accent-glow: rgba(0, 240, 255, 0.4);
+  --color-slate-muted: #888888;
 }
 
 html,
 body {
   overflow-x: hidden;
   font-family: 'Outfit', sans-serif;
-  background-color: var(--color-obsidian);
+  /* background-color: var(--color-obsidian); */
   color: white;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  /* Let GSAP / Lenis handle smoothness if needed, but auto is fine for root */
 }
 
 /* Cinematic Noise Grain Overlay */
@@ -46,17 +48,17 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* Minimalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -64,7 +66,7 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 
@@ -72,7 +74,7 @@ body::before {
   background: var(--color-accent);
 }
 
-/* Theme variables */
+/* Theme variables for Tailwind CSS v4 */
 @theme inline {
   --font-cursive: "cursive";
   --font-cursive2: "cursive2";
@@ -80,30 +82,30 @@ body::before {
   --font-poppins: "Poppins", sans-serif;
   --font-outfit: "Outfit", sans-serif;
 
-  --color-obsidian: #020617;
-  --color-accent: #6366f1;
+  --color-obsidian: #050505;
+  --color-accent: #00f0ff;
 }
 
 /* =========================
    UTILITIES & EFFECTS
 ========================= */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* background: rgba(255, 255, 255, 0.02); */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .glow-shadow {
-  box-shadow: 0 0 20px var(--color-accent-glow);
+  box-shadow: 0 0 25px var(--color-accent-glow);
 }
 
 /* =========================
@@ -111,37 +113,13 @@ body::before {
 ========================= */
 .hero__img {
   background: url("/image.jpg") center/cover no-repeat;
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 0 30px var(--color-accent-glow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   opacity: 0.95;
-  animation: profile__animate 8s ease-in-out infinite;
   position: relative;
 }
 
-.hero__img::after {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border: 1px solid var(--color-accent-glow);
-  border-radius: inherit;
-  animation: pulse-ring 4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-@keyframes pulse-ring {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: scale(1.05);
-    opacity: 0.2;
-  }
-}
-
-/* Animated morphing border for profile */
+/* GSAP helps here, we can remove the pure CSS morph if we want, but keeping it for fallback */
 @keyframes profile__animate {
 
   0%,
@@ -204,28 +182,12 @@ body::before {
   }
 
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-20px);
   }
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes spotlight {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.5);
-  }
+  animation: float 6s ease-in-out infinite;
 }
 
 .spotlight-effect {

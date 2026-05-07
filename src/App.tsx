@@ -30,7 +30,7 @@ export default function App() {
       </Suspense>
       <ScrollToTop />
       <Navbar />
-      <div className="bg-obsidian text-white pt-20 relative min-h-screen">
+      <div className="bg-obsidian text-white relative min-h-screen">
         <main>
           <Suspense fallback={<Loader />}>
             <Routes>
@@ -47,7 +47,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
-      
+
     </Router>
   );
 }
